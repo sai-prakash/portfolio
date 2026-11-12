@@ -6,6 +6,7 @@ import AskButton from '@/components/AskButton';
 import TrackLink from '@/components/TrackLink';
 import DemoRenderer from '@/components/demos/DemoRenderer';
 import HeadlineStrings from '@/components/HeadlineStrings';
+import { site } from '@/lib/site';
 
 export default function Home() {
   const work = getWork();
@@ -25,6 +26,7 @@ export default function Home() {
                 <AskButton className="btn ghost" label="Ask about Sai" />
                 <Link className="btn ghost" href="/playground">Try the playground</Link>
               </div>
+              <p className="small" style={{ marginTop: '1rem' }}>Recruiting? <TrackLink href="/cv" event="cta_cv" data={{ where: 'hero' }}>Get the one-page CV</TrackLink> or <TrackLink href={`mailto:${site.email}`} event="cta_email" data={{ where: 'hero' }}>email me</TrackLink>.</p>
             </div>
             <div>
               <RoleSwitch />
@@ -95,21 +97,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="writing-h">
+      {posts.length > 0 && <section className="section" aria-labelledby="writing-h">
         <div className="wrap">
           <div className="row" style={{ justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.6rem' }}>
             <h2 id="writing-h" style={{ fontSize: 'var(--fs-2xl)' }}>Writing</h2>
             <Link href="/writing">All articles</Link>
           </div>
-          {posts.length ? <PostList posts={posts} /> : <p className="muted">New articles are on the way.</p>}
+          <PostList posts={posts} />
         </div>
-      </section>
+      </section>}
 
       <section className="section" aria-labelledby="hire-h">
         <div className="wrap">
           <h2 id="hire-h" style={{ fontSize: 'var(--fs-2xl)', maxWidth: '20ch' }}>Hiring? Here&apos;s the two-minute version.</h2>
           <p className="lede" style={{ marginTop: '1rem' }}>Role fit, what I&apos;ve shipped, how I work and how to reach me, on one page.</p>
-          <TrackLink className="btn" href="/hire" event="cta_hire_page" data={{ where: 'home' }}>Read the recruiter summary</TrackLink>
+          <div className="row" style={{ marginTop: '1.2rem' }}>
+            <TrackLink className="btn" href="/hire" event="cta_hire_page" data={{ where: 'home' }}>Read the recruiter summary</TrackLink>
+            <TrackLink className="btn ghost" href="/cv" event="cta_cv" data={{ where: 'home' }}>One-page CV</TrackLink>
+          </div>
         </div>
       </section>
     </>

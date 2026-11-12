@@ -16,7 +16,9 @@ export default function Footer() {
           <TrackLink className="btn ghost" href={site.github} event="cta_github" data={{ where: 'footer' }}>GitHub</TrackLink>
         </div>
         <ul className="footer-links">
-          <li><Link href="/writing">Writing</Link></li>
+          <li><Link href="/cv">CV</Link></li>
+          <li><Link href="/system">Design system</Link></li>
+          <li><Link href="/accessibility">Accessibility</Link></li>
           <li><Link href="/work">Work</Link></li>
           <li><Link href="/playground">Playground</Link></li>
           <li><Link href="/feed.xml">RSS</Link></li>

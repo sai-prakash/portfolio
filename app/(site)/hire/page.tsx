@@ -23,6 +23,10 @@ export default function Hire() {
     <div className="wrap section">
       <h1 style={{ fontSize: 'var(--fs-hero)', letterSpacing: '-0.03em', maxWidth: '14ch' }}>The two-minute version</h1>
       <p className="lede" style={{ marginTop: '1rem' }}>For recruiters and hiring managers. Everything here links to the longer story.</p>
+      <div className="row" style={{ marginTop: '1.2rem' }}>
+        <TrackLink className="btn" href={`mailto:${site.email}`} event="cta_email" data={{ where: 'hire-top' }}>Email {site.email}</TrackLink>
+        <TrackLink className="btn ghost" href="/cv" event="cta_cv" data={{ where: 'hire-top' }}>One-page CV</TrackLink>
+      </div>
 
       <h2 style={{ marginTop: '3rem' }}>Roles I fit</h2>
       <div className="grid-3" style={{ marginTop: '1.2rem' }}>
