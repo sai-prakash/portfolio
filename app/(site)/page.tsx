@@ -7,7 +7,7 @@ import TrackLink from '@/components/TrackLink';
 import DemoRenderer from '@/components/demos/DemoRenderer';
 import HeadlineStrings from '@/components/HeadlineStrings';
 import TimeSaved from '@/components/TimeSaved';
-import SeamHero from '@/components/SeamHero';
+import Kolam from '@/components/Kolam';
 import WorkIndex from '@/components/WorkIndex';
 import EmailBig from '@/components/EmailBig';
 import { site } from '@/lib/site';
@@ -18,21 +18,23 @@ export default function Home() {
   const work = getWork();
   const posts = getPosts().slice(0, 6);
 
-  const human = (
-    <div className="wrap dual-pad">
-      <HeadlineStrings />
-      <div className="hero-grid">
-        <div>
-          <p className="lede" style={{ color: 'var(--ink)' }}>{lede}</p>
-          <div className="row" style={{ marginTop: '1.6rem' }}>
-            <Link className="btn" href="/work">See the work</Link>
-            <TrackLink className="btn ghost" href="/cv" event="cta_cv" data={{ where: 'hero' }}>One-page CV</TrackLink>
-            <AskButton className="btn ghost" label="Ask about Sai" />
+  return (
+    <>
+      <section className="khero" aria-label="Introduction">
+        <div className="wrap khero-grid">
+          <div>
+            <HeadlineStrings />
+            <p className="lede" style={{ color: 'var(--ink)', marginTop: '1.6rem' }}>{lede}</p>
+            <div className="row" style={{ marginTop: '1.4rem' }}>
+              <Link className="btn" href="/work">See the work</Link>
+              <TrackLink className="btn ghost" href="/cv" event="cta_cv" data={{ where: 'hero' }}>One-page CV</TrackLink>
+              <AskButton className="btn ghost" label="Ask about Sai" />
+            </div>
+            <p className="small" style={{ marginTop: '1rem' }}>Recruiting? <TrackLink href={`mailto:${site.email}`} event="cta_email" data={{ where: 'hero' }}>Email me</TrackLink>.</p>
           </div>
-          <p className="small" style={{ marginTop: '1rem' }}>Recruiting? <TrackLink href={`mailto:${site.email}`} event="cta_email" data={{ where: "hero" }}>Email me</TrackLink>.</p>
-          <p className="small muted dual-hint">Drag the yellow string. Left of it is what you read. Right of it is what a coding agent reads.</p>
+          <Kolam />
         </div>
-        <div>
+        <div className="wrap khero-facts">
           <RoleSwitch />
           <dl className="facts">
             <dt>Now</dt><dd>Staff Design Engineer (VP), JPMorgan Chase</dd>
@@ -40,46 +42,7 @@ export default function Home() {
             <dt>Based in</dt><dd>Bengaluru, open to Europe and beyond</dd>
           </dl>
         </div>
-      </div>
-    </div>
-  );
-
-  const agent = (
-    <div className="wrap dual-pad">
-      <div className="agent-h">
-        <span># Built for people.</span>
-        <span className="k"># Read by agents.</span>
-        <span># Proven in production.</span>
-      </div>
-      <p className="agent-note">{'<!-- h1 · type.display.hero · color.ink -->'}</p>
-      <div className="hero-grid">
-        <div>
-          <p className="agent-p">&gt; {lede}</p>
-          <p className="agent-p">[See the work](/work)  [One-page CV](/cv)  [Ask about Sai](#guide)</p>
-        </div>
-        <pre className="agent-yaml">{`name: Sai Prakash
-role: Staff Design Engineer
-also: Applied AI Engineer
-now: JPMorgan Chase
-open_to:
-  - Staff Design Engineer
-  - Applied AI Engineer
-based_in: Bengaluru
-open_to_move: Europe and beyond
-shipped:
-  liquidity_co_pilot:
-    minutes: {before: 218, after: 37}
-  promptforge:
-    minutes: {before: 90, after: 20}
-contact: ${site.email}
-source: /llms.txt`}</pre>
-      </div>
-    </div>
-  );
-
-  return (
-    <>
-      <SeamHero human={human} agent={agent} />
+      </section>
 
       <section className="proof" aria-labelledby="proof-h">
         <div className="wrap proof-grid">

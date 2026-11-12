@@ -82,8 +82,10 @@ export default function HeadlineStrings() {
         progress.current = k === 's' ? 1 : 0;
       }
     };
+    const onNote = (e: Event) => voice(BASE * 2 * ((e as CustomEvent<number>).detail || 1));
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('sai:note', onNote);
+    return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('sai:note', onNote); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
