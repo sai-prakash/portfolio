@@ -144,6 +144,8 @@ source: /llms.txt`}</pre>
           <div className="row">
             <TrackLink className="btn" href="/hire" event="cta_hire_page" data={{ where: 'home' }}>Read the two-minute summary</TrackLink>
             <TrackLink className="btn ghost" href="/cv" event="cta_cv" data={{ where: 'home' }}>One-page CV</TrackLink>
+            <TrackLink className="btn ghost" href={site.linkedin} event="cta_linkedin" data={{ where: 'home' }}>LinkedIn</TrackLink>
+            <TrackLink className="btn ghost" href={site.github} event="cta_github" data={{ where: 'home' }}>GitHub</TrackLink>
           </div>
         </div>
       </section>

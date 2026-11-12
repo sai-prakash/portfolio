@@ -95,3 +95,4 @@
 .close .btn.ghost { background: transparent; color: #12163A; }
 .close + .site-footer { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) { .dual-handle.ring::before, .work-index a:hover .g-draw { animation: none; } }
+.close + .site-footer .footer-cta { display: none; } .close + .site-footer { padding-top: 2rem; }
