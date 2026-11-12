@@ -3,9 +3,9 @@ import { formatDate, stateLabel, type CaseStudy, type Post } from '@/lib/content
 
 export function CaseCard({ c }: { c: CaseStudy }) {
   return (
-    <article className="card" data-track={c.track}>
+    <article className="card" data-track={c.track} data-spot>
       <p className="label" style={{ margin: 0 }}>{c.org}</p>
-      <h3><Link href={`/work/${c.slug}`}>{c.headline || c.title}</Link></h3>
+      <h3 data-href={`/work/${c.slug}`}><Link href={`/work/${c.slug}`}>{c.headline || c.title}</Link></h3>
       <p className="muted" style={{ margin: 0, fontSize: 'var(--fs-m)' }}>{c.title}</p>
       <div className="meta">
         <span className={`pill ${c.state}`}>{stateLabel[c.state]}</span>

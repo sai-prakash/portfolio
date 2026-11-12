@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import TrackLink from './TrackLink';
+import EggCount from './EggCount';
 
 export default function Footer() {
   return (
@@ -15,6 +16,7 @@ export default function Footer() {
           <TrackLink className="btn ghost" href={site.linkedin} event="cta_linkedin" data={{ where: 'footer' }}>LinkedIn</TrackLink>
           <TrackLink className="btn ghost" href={site.github} event="cta_github" data={{ where: 'footer' }}>GitHub</TrackLink>
         </div>
+        <EggCount />
         <ul className="footer-links">
           <li><Link href="/cv">CV</Link></li>
           <li><Link href="/system">Design system</Link></li>

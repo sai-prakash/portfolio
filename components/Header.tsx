@@ -2,7 +2,9 @@ import Link from 'next/link';
 import AskButton from './AskButton';
 import TrackLink from './TrackLink';
 import ThemeToggle from './ThemeToggle';
-import { getPosts } from '@/lib/content';
+import CommandPalette from './CommandPalette';
+import { AgentToggle } from './AgentView';
+import { getPosts, getWork } from '@/lib/content';
 
 const links = [
   { href: '/work', label: 'Work' },
@@ -27,6 +29,8 @@ export default function Header() {
           </ul>
         </nav>
         <div className="header-cta">
+          <CommandPalette cases={getWork().map((c) => ({ slug: c.slug, title: c.headline || c.title }))} hasPosts={hasPosts} />
+          <AgentToggle />
           <ThemeToggle />
           <AskButton />
           <TrackLink className="btn small" href="/hire#contact" event="cta_meet" data={{ where: 'header' }}>Meet Sai</TrackLink>

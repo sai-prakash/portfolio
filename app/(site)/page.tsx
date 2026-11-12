@@ -6,6 +6,7 @@ import AskButton from '@/components/AskButton';
 import TrackLink from '@/components/TrackLink';
 import DemoRenderer from '@/components/demos/DemoRenderer';
 import HeadlineStrings from '@/components/HeadlineStrings';
+import TimeSaved from '@/components/TimeSaved';
 import { site } from '@/lib/site';
 
 export default function Home() {
@@ -27,6 +28,10 @@ export default function Home() {
                 <Link className="btn ghost" href="/playground">Try the playground</Link>
               </div>
               <p className="small" style={{ marginTop: '1rem' }}>Recruiting? <TrackLink href="/cv" event="cta_cv" data={{ where: 'hero' }}>Get the one-page CV</TrackLink> or <TrackLink href={`mailto:${site.email}`} event="cta_email" data={{ where: 'hero' }}>email me</TrackLink>.</p>
+              <p className="small muted hero-hint">
+                <span className="hint-hover">This site has two readers. Press A to see what the agent reads, or ⌘K for everything.</span>
+                <span className="hint-touch">This site has two readers. Tap Agent view at the top.</span>
+              </p>
             </div>
             <div>
               <RoleSwitch />
@@ -44,9 +49,9 @@ export default function Home() {
         <div className="wrap">
           <h2 id="proof-h" className="visually-hidden">Results</h2>
           <div className="stats">
-            <div data-track="applied-ai">
+            <div data-track="applied-ai" className="stat-wide">
               <p className="label">Liquidity Co-Pilot, shipped</p>
-              <p className="stat">83%</p>
+              <TimeSaved />
               <p className="muted">less time on a liquidity task: 218 minutes became 37. <Link href="/work/liquidity-co-pilot">How</Link></p>
             </div>
             <div data-track="applied-ai">

@@ -7,9 +7,14 @@ import '@fontsource/eczar/700.css';
 import '@fontsource-variable/hanken-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
+import './interactions.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AskSai from '@/components/AskSai';
+import Eggs from '@/components/Eggs';
+import AgentView from '@/components/AgentView';
+import ContactDock from '@/components/ContactDock';
+import Spotlight from '@/components/Spotlight';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
 import { themeScript } from '@/components/ThemeToggle';
@@ -53,6 +58,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <AskSai />
+        <Eggs />
+        <AgentView />
+        <ContactDock />
+        <Spotlight />
         <JsonLd data={person} />
         <Analytics />
         <SpeedInsights />
