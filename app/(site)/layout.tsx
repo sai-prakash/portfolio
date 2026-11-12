@@ -8,6 +8,7 @@ import '@fontsource-variable/hanken-grotesk';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
 import './interactions.css';
+import './home.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AskSai from '@/components/AskSai';
