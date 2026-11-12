@@ -1,0 +1,52 @@
+---
+title: 'LLM document extraction that people trust: lessons from PromptForge'
+description: What it took to turn an LLM extraction tool into the system a bank uses to create and verify golden data, cutting 90 minutes per document to 20.
+publishedAt: 2026-12-15
+status: draft
+track: applied-ai
+tags:
+  - LLM
+  - Document AI
+  - Applied AI
+---
+
+PromptForge started as a way to speed up a slow, manual job: reading long financial documents and turning them into structured, verified data. It took about 90 minutes per document. It now takes about 20, and the tool has become the way the commercial bank creates and verifies golden data, the reference records other systems are tested against.
+
+<BeforeAfter label="Processing time per document" before={90} after={20} unit="min" />
+
+The model was never the hard part. Trust was. Here's what earned it.
+
+## Show where every value came from
+
+An extracted value with no source is a guess the reviewer has to redo. So every value PromptForge proposes points back to the place in the document where it was found. A reviewer can check it in seconds, which is the whole time saving.
+
+If you build one thing into an extraction tool, build this.
+
+## Make correcting faster than doing it by hand
+
+Reviewers will always find errors. The question is what it costs them. If fixing a wrong value takes longer than typing the right one from scratch, people stop using the tool for exactly the documents where it would help most. Corrections should be one action, in place, with the source still visible.
+
+## Treat corrections as data
+
+Every correction is a labelled example: here's what the model said, here's what was right. Captured properly, corrections become the evaluation set that tells you whether a new prompt or model is better, and the examples that make it better. The review step and the improvement loop are the same thing.
+
+## Design for the accountable person
+
+The people reviewing extracted data are accountable for it. The interface has to respect that: the model proposes, the person decides, and the record shows who approved what. Hiding the model's uncertainty to make the product look smarter is the fastest way to lose that audience.
+
+## Measure the boring baseline
+
+The 90-minute number mattered. We measured how long the job took before anything changed, on real documents, so the improvement was a fact rather than a feeling. That's what turned a promising project into a product.
+
+<EditorNote>
+Add (if cleared): your role, the number of documents or teams, and one specific design decision you made in the review UI. Keep document types generic.
+</EditorNote>
+
+## What I'd tell a team starting now
+
+- Start with the review experience, not the model.
+- Pick a baseline metric and measure it before you build.
+- Store every correction from day one.
+- Ship to the accountable users first and earn your way outward.
+
+Read the [PromptForge case study](/work/promptforge).

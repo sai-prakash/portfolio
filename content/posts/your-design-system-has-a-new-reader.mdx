@@ -1,0 +1,63 @@
+---
+title: Your design system has a new reader, and it doesn't scroll
+description: Coding agents now read your design system docs more often than people do. What changes when the reader is a model with a context window, and where to start.
+publishedAt: 2026-11-17
+status: draft
+track: design-engineering
+tags:
+  - Design systems
+  - AI agents
+  - Documentation
+---
+
+For years, design system documentation had one audience: a designer or engineer with a browser open, scrolling. We wrote for them. Long pages, live examples, a "Do" and a "Don't" side by side.
+
+That reader hasn't gone away. But in most teams I talk to, a second reader now opens the docs far more often: the coding agent. Every time someone asks Copilot, Claude Code or Cursor to "add a filter bar to this page", the agent has to decide which components to use. Either it reads your system, or it guesses.
+
+Mostly, today, it guesses.
+
+## What guessing looks like
+
+When an agent doesn't have your design system in front of it, it falls back on what it saw in training: generic React, Tailwind utility classes, a `div` with an `onClick`. The output looks fine in a screenshot. Then you look at the code.
+
+<Demo name="checks-compare" caption="Same prompt, with and without the system in context." />
+
+Hard-coded colours that ignore your tokens. Buttons that aren't buttons, so they can't be reached with a keyboard. Inputs that rely on placeholder text instead of a label. None of this is new. Agents just produce it faster than any review process can catch it.
+
+## The agent reads differently
+
+A person skims, follows links and looks at pictures. An agent gets a context window, a fixed budget of text, and everything you give it competes for that space. Three things follow:
+
+- **Size matters.** A 40-page component guide pasted into context crowds out the actual task. The agent needs the smallest amount of documentation that lets it make the right choice.
+- **Structure beats prose.** "Use the primary variant sparingly" is advice to a person. "At most one primary Button per view" is a rule an agent can follow and a check can verify.
+- **Examples are instructions.** Agents copy patterns. One correct example of a form with labelled fields teaches more than a paragraph about accessibility.
+
+## Where to start
+
+You don't need to rewrite everything. In my experience, three changes do most of the work.
+
+### 1. Write a one-line registry
+
+Every component, one line: what it's for and when to use it instead of its neighbours. This is what the agent reads first to pick the right part. It also turns out to be the page people ask for most.
+
+### 2. Split each component's docs into tiers
+
+A small core (props, variants, the rules that are always true) that fits in a few kilobytes, and a full spec with edge cases and states that the agent loads only when the task needs it. I wrote about this in [tiered specs for coding agents](/writing/tiered-specs-for-coding-agents).
+
+### 3. Turn guidance into checks
+
+Every rule you can state precisely, you can check automatically. "Every field has a label." "Colours come from tokens." "At most one primary action." Once the rules are checks, you can grade what agents produce, and you can tell whether a change to your docs actually helped. That's the subject of [measure the agent, not the demo](/writing/measure-the-agent-not-the-demo).
+
+<Callout tone="key">
+The test of agent-ready documentation isn't whether it reads well. It's whether an agent given only that documentation builds the screen correctly.
+</Callout>
+
+## People benefit too
+
+Everything above helps human readers as well. A registry is faster to scan. A short core spec is easier to remember. Rules written as checks end arguments in code review. Writing for the agent has made our docs better for people, not worse.
+
+<EditorNote>
+Add one concrete moment from MDS work (public level): e.g. the first time an agent used the registry and picked the right component unprompted. Keep names and numbers cleared.
+</EditorNote>
+
+The design system used to be a library people visited. It's becoming an interface that software calls. The teams that treat it that way will get agents that build on-system by default.

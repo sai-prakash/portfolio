@@ -1,0 +1,12 @@
+{
+  "facts": [
+    { "topic": "Current role", "text": "Sai Prakash is a Staff Design Engineer (Vice President) at JPMorgan Chase in Bengaluru, on the Manhattan Design System team. He works on agent-readable documentation, an MCP server for the design system, evaluation of AI-generated UI, and AI-assisted design tooling." },
+    { "topic": "Experience", "text": "Sai has about twelve years of experience across design and engineering. He spent eleven years at SAP, moving from UI Developer to Lead Product Designer to Innovation Architect, before joining JPMorgan Chase, where he was a Senior UX Engineer before his current Staff Design Engineer role." },
+    { "topic": "Shipped AI products", "text": "At JPMorgan Chase Sai shipped Liquidity Co-Pilot, an AI assistant that cut a liquidity task from 218 minutes to 37, and PromptForge, an LLM document extraction platform that cut processing from 90 minutes to 20 minutes per document and is now used in the commercial bank to create and verify golden data." },
+    { "topic": "Design systems and agents", "text": "Sai builds the tooling that lets coding agents use a design system properly: tiered specs that agents load as needed, an MCP server, and checks that grade agent-generated code against the system. The checks started as a linter that won an internal hackathon." },
+    { "topic": "Roles he is open to", "text": "Sai is open to conversations about Staff Design Engineer, UX Engineer, Design Technologist and Applied AI Engineer roles, in Europe and beyond." },
+    { "topic": "Education", "text": "Sai holds a BCA from BIT Mesra (2012) and an M.Tech in Software Engineering from BITS Pilani (2016), completed while working." },
+    { "topic": "Contact", "text": "The fastest way to reach Sai is email at saiprak@gmail.com. He is also on LinkedIn at linkedin.com/in/prakashsai and GitHub at github.com/sai-prakash." },
+    { "topic": "This website", "text": "This site is built with Next.js and Keystatic. The guide and the playground run a small language model in your browser with WebGPU, so questions never leave your device and there is no server cost." }
+  ]
+}

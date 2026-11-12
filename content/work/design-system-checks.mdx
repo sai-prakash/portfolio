@@ -1,0 +1,36 @@
+---
+title: Design system checks
+headline: Checks that grade what coding agents build.
+description: A linter that won an internal hackathon grew into checks that grade AI-generated code against JPMorgan Chase's Manhattan Design System. Ready on web, with Android and iOS in progress.
+org: JPMorgan Chase, Manhattan Design System
+role: Designed and built it
+period: 2026
+state: build
+metric: Web
+metricLabel: ready, mobile in progress
+order: 3
+status: published
+track: design-engineering
+---
+
+## The problem
+
+Coding agents write UI fast, but they guess. Hard-coded colours, hand-rolled buttons and missing labels slip into production because nobody can see them at scale. The same problem existed before agents; agents just multiplied it.
+
+## What I built
+
+It started as a linter for a hackathon: point it at an app, on screen or in code, and it shows where the design system is being broken. It works on apps that were never built on the system, which turned out to matter most, because those are the apps teams want to migrate. It won the hackathon, and teams started asking for it after the first demos.
+
+From there it became a way to grade agent output. The same checks score what an agent generates, so a team can tell whether a new prompt, model or doc change actually made the output better.
+
+<Demo name="checks-compare" caption="Illustrative example of the kind of checks involved. Not production code." />
+
+## Where it is now
+
+Ready on web. Android and iOS are in progress. I've presented it up the leadership chain as the measurement layer for AI-assisted UI work.
+
+<Callout tone="note">
+The internals are not public. Happy to talk through the approach in an interview.
+</Callout>
+
+Related: [Measure the agent, not the demo](/writing/measure-the-agent-not-the-demo).

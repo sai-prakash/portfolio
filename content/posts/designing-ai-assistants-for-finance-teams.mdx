@@ -1,0 +1,49 @@
+---
+title: 'Designing AI assistants for finance teams: prepare, show, hand back'
+description: Patterns from building Liquidity Co-Pilot, which cut a 218-minute liquidity task to 37 minutes. How to design AI assistance for work where mistakes are expensive.
+publishedAt: 2026-12-18
+status: draft
+track: applied-ai
+tags:
+  - Applied AI
+  - LLM
+  - Product design
+---
+
+In finance, the cost of a confident wrong answer is high, and the people doing the work know it. An AI assistant for a finance team has to save time without ever asking them to trust it blindly.
+
+Liquidity Co-Pilot cut one liquidity task from about 218 minutes to about 37. The pattern behind it is simple enough to reuse: the assistant prepares, shows its working, and hands the decision back.
+
+<BeforeAfter label="Time for the liquidity task" before={218} after={37} unit="min" />
+
+## Prepare
+
+Most of the 218 minutes wasn't the decision. It was gathering: finding the right figures, lining them up, reconciling them. That's where an assistant earns its place. Map the task step by step and look for the steps that are search, collation and first drafts. Leave judgement with the person.
+
+## Show
+
+Every number the assistant brings forward should show where it came from. Not a footnote: right next to the value, one click away from the source. Specialists check things; the interface should make checking the fastest path, not an extra one.
+
+When the assistant isn't sure, it should say so plainly, and say what it would need to be sure.
+
+## Hand back
+
+The person approves, edits or rejects. The assistant never acts on its own in a step with financial consequences. This isn't only about risk; it's what makes adoption possible. People adopt tools that make them faster at their job, not tools that try to do their job.
+
+## Earn adoption, don't mandate it
+
+Liquidity Co-Pilot's adoption came from the people who do the task choosing to use it. A few things helped:
+
+- **Start with one task**, end to end, rather than a general assistant.
+- **Measure the before.** The 218-minute baseline made the value obvious.
+- **Ship to the specialists first**, and change the design based on what they did, not what they said.
+
+<EditorNote>
+Add (if cleared): your role, how many users, and one design change that came from watching specialists use it.
+</EditorNote>
+
+## The general rule
+
+If an assistant saves time on gathering and loses it on checking, it saves nothing. Design the checking first.
+
+Read the [Liquidity Co-Pilot case study](/work/liquidity-co-pilot).

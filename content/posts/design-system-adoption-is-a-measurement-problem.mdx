@@ -1,0 +1,44 @@
+---
+title: Design system adoption is a measurement problem
+description: Design system teams argue about adoption without data. How to measure where the system is actually used, and broken, across apps you didn't build, and why agents make it urgent.
+publishedAt: 2026-12-29
+status: draft
+track: design-engineering
+tags:
+  - Design systems
+  - Evaluation
+---
+
+Ask a design system team how adopted their system is and you'll usually get an estimate. "Most new apps." "Pretty much everything in the main product." Ask how they know, and the answer is a survey or a count of package downloads.
+
+Neither tells you what's on users' screens. An app can install the system and still hard-code half its colours. Another can look on-brand and use none of the components.
+
+## Measure what shipped
+
+The useful questions are about the product as users see it:
+
+- Which screens use the system's components, and which use look-alikes?
+- Where are colours, spacing and type hard-coded instead of coming from tokens?
+- Where does the shipped UI break the system's rules, like labels, focus and primary actions?
+
+You can answer these by checking code, the rendered page, or both. Checking the rendered page has a big advantage: it works on apps that never used the system at all, which are exactly the ones you're trying to bring in.
+
+## Make it a map, not a score
+
+One adoption percentage invites arguments about the denominator. A map is more useful: which apps, which screens, which rules, trending over time. It shows where to invest, and it shows teams their own progress, which is far more motivating than a league table.
+
+## Use it to plan, not to police
+
+The fastest way to kill a measurement programme is to use it to shame teams. Use it to decide what the design system team builds next. If one pattern is re-implemented badly in ten apps, that pattern's component or docs are the problem, not the ten teams.
+
+## Agents make this urgent
+
+Coding agents now produce a large share of new UI. They don't read your adoption guide. Unless your system is [readable by agents](/writing/your-design-system-has-a-new-reader), every agent-written screen lowers adoption quietly. The same checks that measure adoption across your apps can grade agent output before it merges, which is the cheapest place to fix it.
+
+## Where this came from
+
+My own version of this started as a hackathon project: a linter that shows design system issues on screen and in code, including on apps that were never built on the system. It won, teams asked for it after the first demos, and it has grown into the [checks we use to grade agent output](/work/design-system-checks).
+
+<EditorNote>
+Keep the method high level (publication freeze). Add one cleared, anonymised finding: e.g. the most common violation across apps.
+</EditorNote>

@@ -1,0 +1,52 @@
+---
+title: Evaluating LLM features without a data science team
+description: A practical way for product and design engineering teams to evaluate LLM features, with a small task set, automated checks, a baseline and a review habit.
+publishedAt: 2026-12-22
+status: draft
+track: applied-ai
+tags:
+  - Evaluation
+  - LLM
+  - Applied AI
+---
+
+Most teams shipping LLM features don't have a dedicated evaluation team. They have a deadline, a prompt that works on the examples they tried, and a feeling. That feeling is not enough to ship on, and it's definitely not enough to change models on.
+
+You don't need a research team to do better. You need four habits.
+
+## 1. Write down twenty real cases
+
+Collect twenty to fifty inputs that look like what real users will send. Include the awkward ones: long, short, ambiguous, in the wrong format, in another language. For each, write what a good answer must contain or must not contain. Not the perfect answer; the properties of an acceptable one.
+
+This set is your evaluation. Keep it in the repository next to the prompt.
+
+## 2. Automate what you can check
+
+A surprising amount of quality is checkable without a model:
+
+- Is the output in the right format? Does it parse?
+- Does it include the required fields? Are the numbers ones that appear in the source?
+- Does it stay under the length limit? Does it avoid phrases you've banned?
+- For UI, does it use the design system correctly? (I wrote about [grading AI-generated UI](/writing/measure-the-agent-not-the-demo).)
+
+Every check you automate is one you never have to argue about again.
+
+## 3. Use a model to judge only what checks can't
+
+For qualities like "answers the question" or "tone is right", a second model can grade the output against a short rubric. Treat it as a noisy instrument: calibrate it by comparing its grades with yours on a sample, and don't trust it on anything you haven't calibrated.
+
+## 4. Keep a baseline and run it on every change
+
+The point of all this is comparison. Before you change a prompt, a model or a retrieval setting, run the set and save the scores. After the change, run it again. Better on the set and no worse on any check: ship it. Otherwise, you've learned something cheaply.
+
+## A habit for the team
+
+Once a week, someone reads ten real outputs from production. Not the dashboard, the actual text. Every surprising failure becomes a new case in the set. That loop, from production back into evaluation, is what keeps the set honest.
+
+## What this bought us
+
+On PromptForge, reviewer corrections fed the case set directly, so every model or prompt change could be compared on real documents before it shipped. That's a large part of why the tool earned the trust to become a product. More in [LLM document extraction that people trust](/writing/llm-document-extraction-people-trust).
+
+<EditorNote>
+Optional: add one example of a change the eval set caught before it shipped.
+</EditorNote>

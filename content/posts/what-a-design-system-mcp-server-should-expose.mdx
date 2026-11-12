@@ -1,0 +1,59 @@
+---
+title: What a design system MCP server should expose
+description: A practical tool list for a design system Model Context Protocol server, so coding agents can find components, read specs, get tokens and check their own output.
+publishedAt: 2026-11-27
+status: draft
+track: both
+tags:
+  - MCP
+  - Design systems
+  - AI agents
+---
+
+The Model Context Protocol gives coding agents a standard way to call tools. For a design system team, that's an opportunity: instead of hoping the agent remembers your components from training data, the agent can ask your system directly.
+
+The question is what to expose. Too few tools and the agent still guesses. Too many and it gets confused about which to call. Here's the set I'd start with.
+
+## 1. Search the registry
+
+`find_component(query)` returns a short list of components that match what the agent is trying to build, with one line each on when to use them. This is the most-called tool by far. Make the descriptions about intent ("a single choice from a short list") rather than implementation.
+
+## 2. Get the core spec
+
+`get_spec(component, tier = "core")` returns props, variants and rules, small enough to fit comfortably in context. The agent calls it once it has picked a component. See [tiered specs for coding agents](/writing/tiered-specs-for-coding-agents) for what goes in the core.
+
+## 3. Get more only when needed
+
+The same tool with `tier = "full"` returns edge cases and states. Keeping it a separate call means the agent only pays for detail when the task needs it, and you can see in your logs which components need it most often. That's a useful signal about which core specs are missing something.
+
+## 4. Resolve tokens
+
+`get_tokens(category)` returns exact values for colour, spacing or type. Agents should never invent a value; give them a fast way not to.
+
+## 5. Show an example
+
+`get_example(component, scenario)` returns one correct, complete code example. Agents copy examples more faithfully than they follow rules, so this tool often fixes more errors than any amount of spec text.
+
+## 6. Check the output
+
+`check(code)` runs your design system checks on what the agent wrote and returns the failures in plain language. This closes the loop: the agent writes, checks, and fixes before a human ever sees it. It's also how you [measure the agent](/writing/measure-the-agent-not-the-demo) over time.
+
+<Demo name="checks-compare" caption="The kind of feedback a check tool returns." />
+
+## What not to expose
+
+- **Your whole documentation site** as one resource. It will be read, partly, and then ignored.
+- **Design rationale** in the core tools. It's valuable for people; for an agent it's noise at the moment of building.
+- **Internal tooling details**, like build scripts or Figma file keys, unless the agent genuinely needs them for the task.
+
+## Write tool descriptions for a model
+
+The tool descriptions are prompts. Say when to call the tool, not just what it does. "Call this before writing any UI to find the right component" gets called. "Returns components" often doesn't.
+
+## Log everything
+
+Every call tells you something: which components agents look for and can't find, which specs they always escalate to the full tier, which checks fail most. After a few weeks, those logs are the best roadmap your design system team has had.
+
+<EditorNote>
+Optional: add a short, cleared note on how the MDS MCP server is used today (who connects to it, from which agents).
+</EditorNote>

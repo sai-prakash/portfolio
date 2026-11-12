@@ -1,0 +1,40 @@
+---
+title: A design system agents can read
+headline: Give the agent twelve kilobytes first. Load the rest only when the task needs it.
+description: How I rebuilt design system documentation for coding agents with tiered specs and an MCP server, so agents load a small core first and pull detail only when the task needs it.
+org: JPMorgan Chase, Manhattan Design System
+role: Designed and built it
+period: 2026
+state: build
+metric: 22
+metricLabel: edge cases covered in the reference pattern
+order: 4
+status: published
+track: design-engineering
+---
+
+## The problem
+
+Component docs are written for people who scroll. Agents don't scroll: they get a context window. Give an agent the whole design system and it runs out of room; give it none and it invents its own components.
+
+## Tiered specs
+
+I split each pattern's documentation into tiers that an agent loads in order:
+
+1. **Registry**: every component, one line each, so the agent can find the right one.
+2. **Core spec**: props, variants and rules, kept under 12 KB.
+3. **Full spec**: edge cases, states and examples, loaded only when needed.
+4. **Tokens**: exact values, for when precision matters.
+5. **Contact sheet**: pictures of every state, for visual checks.
+
+<Demo name="tiered-spec" caption="Which tiers an agent loads depends on the task." />
+
+## Served over MCP
+
+An MCP server exposes the tiers as tools, so any coding agent that speaks the Model Context Protocol can ask the design system directly instead of guessing from training data.
+
+## Proof
+
+The reference implementation, a Filter pattern, covers 22 edge cases and 52 token bindings, and passes its evaluation suite.
+
+Related: [Tiered specs for coding agents](/writing/tiered-specs-for-coding-agents) and [What a design system MCP server should expose](/writing/what-a-design-system-mcp-server-should-expose).

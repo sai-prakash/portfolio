@@ -1,0 +1,59 @@
+---
+title: 'Running a small LLM in the browser with WebGPU: what works today'
+description: WebGPU now ships in every major browser. What a small language model in the browser is good for, what it isn't, and the practical choices I made running one on this site.
+publishedAt: 2026-12-01
+status: draft
+track: applied-ai
+tags:
+  - WebGPU
+  - In-browser AI
+  - LLM
+---
+
+The guide and the [playground](/playground) on this site run a language model inside your browser. No API key, no server, and your question never leaves your device. A year ago that was a demo for enthusiasts. Now it's a reasonable engineering choice for some features. Here's what I learned building it.
+
+## Browser support is finally there
+
+WebGPU is the API that gives web pages access to the GPU for general computation, which is what model inference needs. Chrome and Edge have shipped it since version 113 on Windows, macOS and ChromeOS, and Chrome added Android support in version 121 for devices on Android 12 or later with Qualcomm or ARM GPUs. Firefox shipped it on Windows in version 141 and on Apple Silicon Macs running macOS Tahoe 26 in version 145. Safari supports it on macOS, iOS, iPadOS and visionOS 26.
+
+That still leaves gaps, Linux and many older phones among them, so anything you build needs a fallback. Check your own browser:
+
+<Demo name="webgpu-check" />
+
+## What a small model is good for
+
+The models that run comfortably in a browser are small: half a billion to a couple of billion parameters, quantised. They are not good at knowing things. They are good at working with text you give them.
+
+That points to a clear pattern: **retrieve, then generate.** On this site, a plain keyword search (BM25) over the articles and case studies finds the most relevant passages in milliseconds. The model only has to turn those passages into a short answer and point to the source. It isn't asked to know anything about me.
+
+Things that work well at this size:
+
+- Answering questions from passages you provide, with sources
+- Rewriting, summarising and classifying short text
+- Producing structured output, like JSON, when you constrain the format
+
+Things that don't:
+
+- Open-ended knowledge questions
+- Long, multi-step reasoning
+- Anything where a confident wrong answer is costly and there's no source to check
+
+## Design for the download
+
+The model has to be downloaded once and is cached afterwards. Even a small model is a significant download, and that changes the UX:
+
+- **Never load it on page view.** On this site, nothing downloads until a visitor asks for it.
+- **Work without it.** Without the model, the guide still answers by quoting the best matching passage. The model makes answers nicer; it's not required for them.
+- **Show progress honestly.** A progress bar with real numbers, and a line saying it's cached next time.
+
+## Constrain the output
+
+For the playground, the model generates a UI as JSON from a fixed list of components. WebLLM supports a JSON response format, which removes a whole class of parsing failures. Then deterministic checks grade the result, and failures go back to the model as feedback. A small model with a tight format and a checker beats a bigger model left to free-form text.
+
+## Privacy is a feature, not a footnote
+
+For a lot of products, especially in finance, "the text never leaves your device" isn't a nice-to-have. It changes what you're allowed to build. That's the part of in-browser AI I'm most interested in.
+
+<EditorNote>
+Add your own measurements once deployed: model load time on your M1 Pro, tokens per second, and how many visitors had WebGPU (from analytics).
+</EditorNote>

@@ -1,0 +1,29 @@
+---
+title: This site
+headline: A portfolio that agents can read and a model can run in.
+description: How this site is built, with Next.js, a Git-based CMS, interactive demos inside articles, and a small language model running in the visitor's browser with WebGPU.
+org: Open source
+role: Designed and built it
+period: 2026
+state: oss
+metric: '0'
+metricLabel: server cost for the AI features
+order: 7
+status: published
+track: both
+---
+
+## Why build it this way
+
+A portfolio about AI and design systems should show both, not describe them. So the site is the demo.
+
+## How it works
+
+- **Next.js on Vercel**, statically generated, with Vercel Analytics and Speed Insights.
+- **Keystatic** for editing. Articles and case studies are MDX files in GitHub; the editor at `/keystatic` commits to the repository. Live demos are React components editors drop into any article.
+- **An in-browser model.** The Ask guide and the [playground](/playground) run a small language model with WebLLM and WebGPU. Questions never leave your device and there's no server bill.
+- **Built for agents too.** Every page has structured data, and [`/llms.txt`](/llms.txt) gives AI agents a plain-text map of the site.
+
+<Demo name="playground-teaser" />
+
+Read the long version: [How this site works](/writing/how-this-site-works).

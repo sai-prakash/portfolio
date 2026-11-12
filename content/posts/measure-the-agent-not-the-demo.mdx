@@ -1,0 +1,69 @@
+---
+title: 'Measure the agent, not the demo: grading AI-generated UI'
+description: Demos of AI-generated UI always look good. How to grade agent output with automated checks so you know whether a new model, prompt or doc change actually helped.
+publishedAt: 2026-11-24
+status: draft
+track: both
+tags:
+  - Evaluation
+  - AI agents
+  - Design systems
+---
+
+Every demo of an agent building UI looks good. The screenshot is clean, the presenter is pleased, and nobody opens the code. Then the same agent runs on a real backlog for a month, and the design system team spends its time cleaning up.
+
+The gap between the demo and the month is a measurement problem. If you can't score what the agent produces, you can't tell whether anything you change, a model, a prompt, your docs, makes it better.
+
+## Start with checks, not opinions
+
+The first instinct is to have people rate the output. That's slow, inconsistent, and doesn't scale to the hundreds of runs you need to compare two setups. Most of what matters in UI code can be checked automatically:
+
+- Does it use the system's components, or invent its own?
+- Do colours, spacing and type come from tokens, or are they hard-coded?
+- Does every field have a label? Can every control be reached with a keyboard?
+- Is there at most one primary action? Do the headings follow a sensible order?
+- Do buttons say what they do?
+
+<Demo name="checks-compare" caption="Four checks are enough to separate an agent that guessed from one that used the system." />
+
+None of these require taste. They require the rules to be written down precisely, which is a good discipline anyway.
+
+## Build a small, fixed task set
+
+You need the same tasks every time, or comparisons mean nothing. Twenty to fifty tasks is enough to start, chosen to cover what your teams actually build: a form, a table with filters, an empty state, an error state, a settings page. Write each as the kind of prompt a developer would really type, not a carefully engineered one.
+
+Run every task several times. Agents aren't deterministic, and one lucky run tells you little.
+
+## Grade in layers
+
+Not every check is equally important, and not every failure is equally cheap to find. I think about grading in layers, from fastest to slowest:
+
+1. **Does it parse and render at all?**
+2. **Static checks** on the code: components, tokens, props.
+3. **Accessibility checks** on the rendered result.
+4. **Visual comparison** against what the system's components look like.
+5. **Human review** of a sample, for the things checks can't see yet.
+
+Most of the signal comes from the first three, which run in seconds. Save human review for calibrating the checks, not replacing them.
+
+## Report one number, keep the detail
+
+Leaders want one number: is it getting better? Engineers want to know why. Give both. A pass rate across all checks and tasks goes on the slide; the per-check breakdown goes in the report, because "token usage went up, labels went down" tells you exactly what to fix next.
+
+## What changes when you measure
+
+Three things happened when we started grading agent output on our design system work.
+
+First, arguments got shorter. "The new prompt is better" became a number we could check.
+
+Second, documentation work got prioritised by impact. When the checks showed agents kept failing on one pattern, that pattern's docs went to the top of the list.
+
+Third, we could say no to shiny things. A new model that demos beautifully but scores lower on our tasks doesn't get adopted.
+
+<EditorNote>
+Add one cleared example from the MDS checks work: a change that the numbers proved helped (or didn't).
+</EditorNote>
+
+## Try it
+
+The [playground](/playground) on this site runs a small model in your browser, builds UI from a tiny design system, and grades it with six checks. Feed the failures back and watch the score move. It's a toy, but it's the same loop.

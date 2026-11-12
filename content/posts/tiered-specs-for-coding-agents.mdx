@@ -1,0 +1,63 @@
+---
+title: 'Give the agent twelve kilobytes first: tiered specs for coding agents'
+description: How to split design system documentation into tiers so coding agents load a small core first and pull edge cases, tokens and pictures only when the task needs them.
+publishedAt: 2026-11-20
+status: draft
+track: design-engineering
+tags:
+  - Design systems
+  - AI agents
+  - Documentation
+---
+
+The most common mistake I see when teams connect a coding agent to their design system is giving it everything. The whole component guide, every prop table, every example. It feels thorough. In practice it crowds out the task, and the agent starts ignoring parts of what you gave it.
+
+The fix is to stop thinking of documentation as one page per component and start thinking of it as layers an agent loads in order.
+
+## Five tiers
+
+This is the structure I use. Each tier answers a different question the agent has while working.
+
+1. **Registry.** Which component should I use? One line per component: what it's for, and when to pick it over its neighbours.
+2. **Core spec.** How do I use it correctly? Props, variants, and the rules that are always true. Kept small; in my work, under 12 KB per pattern.
+3. **Full spec.** What about this unusual case? Edge cases, states, error handling, long content, empty data.
+4. **Tokens.** What are the exact values? Colours, spacing and type, for when the agent has to match something precisely.
+5. **Contact sheet.** What should it look like? Images of every state, for visual checks.
+
+<Demo name="tiered-spec" caption="Try different tasks to see which tiers the agent needs." />
+
+## Why the core has a size budget
+
+The budget forces decisions. If a rule doesn't fit in the core, it's either not always true, which means it belongs in the full spec, or it's not a rule at all, it's advice. Most "guidelines" sections shrink by half when you apply this test.
+
+A small core also makes the agent's behaviour easier to predict. When it gets something wrong, there are only a few kilobytes to check, not a forty-page guide.
+
+## Write rules an agent can follow
+
+Compare these two lines from a button guideline:
+
+> Use the primary variant sparingly to keep the interface calm.
+
+> At most one primary Button per view. Use secondary for every other action.
+
+The first is good advice for a designer. The second is a rule an agent can follow and a check can verify. The core spec should be written almost entirely in the second style. Keep the first style for the full spec, where the reasoning helps.
+
+## Examples are the strongest instruction
+
+Agents copy patterns more reliably than they follow prose. One correct example in the core spec, a form with labelled fields, a primary and a secondary action, does more than a paragraph explaining both. Pick the example that shows the most rules at once, and make sure it passes every check you have.
+
+## How the agent finds the tiers
+
+The tiers are only useful if the agent can ask for them. You can paste the registry into a system prompt and let the agent request the rest, but the cleaner route is an MCP server that exposes each tier as a tool. I've written about [what that server should expose](/writing/what-a-design-system-mcp-server-should-expose).
+
+## Proving it works
+
+Tiers are a hypothesis until you measure them. Give an agent the same set of tasks with and without the tiered docs, grade the output with automated checks, and compare. In our reference pattern, a filter, the tiers cover 22 edge cases and 52 token bindings, and the evaluation suite passes. That's the bar I'd set for any pattern before calling it agent-ready.
+
+<EditorNote>
+If cleared, add a before/after number from MDS: e.g. checks passed by the agent without tiers vs with tiers on the filter tasks.
+</EditorNote>
+
+## Start small
+
+Pick the three components agents use most, usually button, text field and some kind of container, and write the registry line and core spec for those first. You'll learn more from three well-measured components than from a full rewrite.

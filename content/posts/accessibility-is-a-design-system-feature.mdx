@@ -1,0 +1,49 @@
+---
+title: Accessibility is a design system feature, not an audit
+description: Audits find accessibility problems after they ship. A design system can prevent most of them before they're written. Where to build accessibility into tokens, components and checks.
+publishedAt: 2026-12-11
+status: draft
+track: design-engineering
+tags:
+  - Accessibility
+  - Design systems
+---
+
+Most organisations meet accessibility as an audit: someone tests the finished product, writes a long report, and teams fix what they can before the next release. The same issues come back, because nothing changed where they were created.
+
+A design system is where they're created. Every screen is assembled from its tokens and components. If those are accessible by construction, most screens are too, and the audit becomes a confirmation rather than a rescue.
+
+## Start with tokens
+
+Colour contrast is the most common failure in accessibility audits, and it's entirely preventable at the token level. If every text and background pair the system offers meets the contrast requirement, teams can't easily ship one that doesn't.
+
+<Demo name="contrast-checker" caption="Try token pairs. Body text needs 4.5:1 for WCAG AA." />
+
+Check every pair automatically when tokens change, not once a year.
+
+## Components carry the hard parts
+
+The things teams get wrong most often are the things a component can get right once:
+
+- **Labels.** A text field that requires a label prop can't be shipped without one.
+- **Keyboard behaviour.** Menus, dialogs, tabs and comboboxes have well-defined keyboard patterns. Build them once.
+- **Focus.** A visible focus style in the system, and focus management in dialogs and drawers.
+- **Announcements.** Toasts, inline errors and loading states that screen readers announce.
+
+When a component makes the accessible path the easy path, teams follow it without thinking about it.
+
+## Then check everything
+
+Rules that live only in documentation get skipped. Rules that are checks get followed. The same automated checks that [grade AI-generated UI](/writing/measure-the-agent-not-the-demo) catch missing labels, hard-coded colours and unreachable controls in human-written code. Run them in pull requests, and on the deployed product.
+
+## Agents raise the stakes
+
+Coding agents copy patterns. If an agent learns from an inaccessible example, it reproduces the problem across every screen it builds, quickly. If your system's components and examples are accessible, agents spread that instead. That's the best argument I know for treating accessibility as a property of the system.
+
+## Regulation is catching up
+
+Accessibility is increasingly a legal requirement for digital products and services in many markets, including the European Accessibility Act in the EU and, for India's securities market, SEBI's digital accessibility rules for regulated entities. A system-level approach is the only one that scales to that.
+
+<EditorNote>
+Before publishing: verify the current dates and scope for EAA (and Germany's BFSG) and SEBI, and add links to the official sources.
+</EditorNote>

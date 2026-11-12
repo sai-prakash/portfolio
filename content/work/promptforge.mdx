@@ -1,0 +1,40 @@
+---
+title: PromptForge
+headline: Ninety minutes per document became twenty. Then it became a product.
+description: PromptForge is an LLM platform for document extraction and annotation. It cut processing from 90 to 20 minutes per document and is now used in the commercial bank to create and verify golden data.
+org: JPMorgan Chase
+role: ''
+period: ''
+state: production
+metric: 78%
+metricLabel: less time per document
+order: 2
+status: published
+track: applied-ai
+---
+
+<EditorNote>
+Add your exact role and the period. If cleared, add one sentence on document types (at a public level) and how many teams use it.
+</EditorNote>
+
+## The problem
+
+Turning long financial documents into structured, verified data was slow and manual: about 90 minutes per document. The output feeds other systems, so it has to be right, not just fast.
+
+## The approach
+
+PromptForge pairs LLM extraction with a review flow built for people who are accountable for the result. The model proposes values and points to where in the document it found them; a reviewer accepts, corrects or rejects. Corrections are captured, so the prompts and checks get better over time.
+
+<BeforeAfter label="Processing time per document" before={90} after={20} unit="min" />
+
+## Result
+
+Processing dropped from about 90 minutes to about 20 per document, a 78% reduction. PromptForge then moved beyond a project: it's now the tool the commercial bank uses to create and verify golden data, the reference records other systems are tested against.
+
+## What made it work
+
+- **Show the evidence.** Every extracted value links back to its place in the source.
+- **Make correcting cheap.** If fixing the model is slower than doing it by hand, people stop trusting it.
+- **Treat corrections as data.** The review step is also the evaluation set.
+
+Related: [LLM document extraction that people trust](/writing/llm-document-extraction-people-trust).

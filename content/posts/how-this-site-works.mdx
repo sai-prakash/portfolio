@@ -1,0 +1,57 @@
+---
+title: 'How this site works: Next.js, a Git-based CMS and a model in your browser'
+description: The architecture behind this portfolio, from content in GitHub and live demos inside articles to an AI guide that runs on the visitor's device, and why each choice was made.
+publishedAt: 2026-12-04
+status: draft
+track: both
+tags:
+  - Next.js
+  - In-browser AI
+  - Architecture
+---
+
+A portfolio about AI and design systems should demonstrate both. So I rebuilt this site to be the demo: everything you read can also be queried, and some of it runs a model on your device. Here's how it fits together.
+
+## Goals
+
+1. **Easy to write for.** Fifty articles only happen if publishing is cheap.
+2. **Interactive where it helps.** A demo inside an article beats a screenshot of one.
+3. **Fast and findable.** Static pages, structured data, and a clean sitemap.
+4. **No servers to babysit.** One Vercel project, one GitHub repository.
+
+## Content lives in GitHub
+
+Articles and case studies are MDX files in the repository. I edit them in Keystatic, a Git-based CMS: it gives me a web editor at `/keystatic`, and every save is a commit. There's no database to back up, and every change has history and can be reviewed like code.
+
+Each article has a status. Drafts appear on preview deployments with an "Editor note" component I use for reminders; only published pieces reach the live site.
+
+## Demos are components
+
+Interactive demos are React components registered in one file. In the editor, I insert them from a menu like any other block, and choose which demo and caption. For demos built elsewhere, an Embed block takes any URL. This one, for example, shows which documentation an agent loads for a task:
+
+<Demo name="tiered-spec" />
+
+## The model runs on your device
+
+The "Ask about Sai" guide and the [playground](/playground) use WebLLM, which runs small language models in the browser with WebGPU. Nothing is downloaded until a visitor asks, and without WebGPU both features fall back gracefully: the guide quotes the best matching passage, and the playground shows recorded runs graded live.
+
+At build time, a script splits every published page into passages and writes a small search index. In the browser, a keyword search finds the right passages and the model writes the answer from them, with links. I wrote more about this in [running a small LLM in the browser](/writing/run-a-small-llm-in-the-browser-with-webgpu).
+
+## Built for search engines and for agents
+
+- Static pages with per-page titles, descriptions and canonical URLs
+- Structured data for the person, every article and every breadcrumb
+- Generated social images for every article and case study
+- An RSS feed, a sitemap, and an [`/llms.txt`](/llms.txt) that gives AI agents a plain-text map of the site
+
+## Measured
+
+Vercel Analytics records page views, and custom events record the things that matter for a portfolio: emails clicked, the recruiter page opened, the role switch used, the playground run. Speed Insights keeps an eye on real-world performance.
+
+## What I'd change
+
+<EditorNote>
+After a month live, add what you'd change, with numbers from analytics: which pages recruiters actually opened, how many people used the guide.
+</EditorNote>
+
+The code is on [GitHub](https://github.com/sai-prakash/portfolio).
