@@ -6,6 +6,8 @@ export const DEMOS = {
   'tiered-spec': { label: 'Tiered spec loader' },
   'webgpu-check': { label: 'Does your browser have WebGPU?' },
   'playground-teaser': { label: 'Playground teaser' },
+  'two-readers': { label: 'One rule, two readers (seam)' },
+  'pratyahara': { label: 'Pāṇini: two letters name a set' },
 } as const;
 
 export type DemoName = keyof typeof DEMOS;

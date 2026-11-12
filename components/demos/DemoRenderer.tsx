@@ -8,6 +8,8 @@ const map = {
   'tiered-spec': dynamic(() => import('./TieredSpec')),
   'webgpu-check': dynamic(() => import('./WebGPUCheck')),
   'playground-teaser': dynamic(() => import('./PlaygroundTeaser')),
+  'two-readers': dynamic(() => import('./TwoReaders')),
+  'pratyahara': dynamic(() => import('./Pratyahara')),
 } satisfies Record<DemoName, unknown>;
 
 export default function DemoRenderer({ name, caption }: { name: string; caption?: string }) {

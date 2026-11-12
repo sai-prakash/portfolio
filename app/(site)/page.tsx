@@ -5,6 +5,7 @@ import RoleSwitch from '@/components/RoleSwitch';
 import AskButton from '@/components/AskButton';
 import TrackLink from '@/components/TrackLink';
 import DemoRenderer from '@/components/demos/DemoRenderer';
+import HeadlineStrings from '@/components/HeadlineStrings';
 
 export default function Home() {
   const work = getWork();
@@ -13,11 +14,7 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="wrap">
-          <h1>
-            <span>Built for people.</span>
-            <span className="machine">Read by agents.</span>
-            <span>Proven in production.</span>
-          </h1>
+          <HeadlineStrings />
           <div className="hero-grid">
             <div>
               <p className="lede" style={{ color: 'var(--ink)' }}>
@@ -61,6 +58,19 @@ export default function Home() {
               <p className="muted">Grading agent-generated code against the system; Android and iOS in progress. <Link href="/work/design-system-checks">How</Link></p>
             </div>
           </div>
+        </div>
+      </section>
+
+
+      <section className="section" aria-labelledby="idea-h">
+        <div className="wrap hero-grid" style={{ marginTop: 0 }}>
+          <div>
+            <h2 id="idea-h" style={{ fontSize: 'var(--fs-2xl)' }}>Every rule now has two readers.</h2>
+            <p className="lede" style={{ marginTop: '1rem' }}>A designer reads the guideline. An agent reads the spec. When the two disagree, the agent ships the bug. My work is making them one source, and proving the agent followed it.</p>
+            <p><Link href="/writing/your-design-system-has-a-new-reader">Why this matters now</Link></p>
+            <p><Link href="/system">See the system this site is made of</Link></p>
+          </div>
+          <DemoRenderer name="two-readers" />
         </div>
       </section>
 

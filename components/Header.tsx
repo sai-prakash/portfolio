@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import AskButton from './AskButton';
 import TrackLink from './TrackLink';
+import ThemeToggle from './ThemeToggle';
 
 const links = [
   { href: '/work', label: 'Work' },
@@ -22,6 +23,7 @@ export default function Header() {
           </ul>
         </nav>
         <div className="header-cta">
+          <ThemeToggle />
           <AskButton />
           <TrackLink className="btn small" href="/hire#contact" event="cta_meet" data={{ where: 'header' }}>Meet Sai</TrackLink>
         </div>

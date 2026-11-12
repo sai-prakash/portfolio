@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import TrackLink from '@/components/TrackLink';
 import AskButton from '@/components/AskButton';
+import TimeOverlap from '@/components/TimeOverlap';
+import DemoRenderer from '@/components/demos/DemoRenderer';
 
 export const metadata: Metadata = {
   title: 'Hiring Sai Prakash: Staff Design Engineer and Applied AI Engineer',
@@ -36,14 +38,42 @@ export default function Hire() {
         <li><span className="small muted">Web ready</span><div><h3><Link href="/work/design-system-checks">Design system checks</Link></h3><p>Grades agent-generated code against the design system. Started as a hackathon-winning linter.</p></div></li>
       </ul>
 
+      <h2 style={{ marginTop: '3.5rem' }}>How I multiply</h2>
+      <ul className="prose" style={{ marginTop: '1rem' }}>
+        <li>Gave designers direct model access with an SDK, a playground and an API.</li>
+        <li>Took a hackathon win to design leadership.</li>
+        <li>Explained the agent docs pipeline to design, product and tech leads as three decisions.</li>
+        <li>Handed the Figma plugin to engineering and kept owning its UX research.</li>
+      </ul>
+
+      <h2 style={{ marginTop: '3.5rem' }}>Path</h2>
+      <ol className="post-list" style={{ marginTop: '1.2rem' }} aria-label="Career, oldest first">
+        <li><span className="small muted">11 years</span><div><h3>SAP</h3><p>UI Developer, then Lead Product Designer, then Innovation Architect. Worked on SAP&apos;s living style guide; led design for mobile experience and Business Objects prototyping.</p></div></li>
+        <li><span className="small muted">Corporate &amp; Investment Bank</span><div><h3>JPMorgan Chase, Senior UX Engineer</h3><p>Built a Figma-to-SALT pipeline that turns design files into design-system code.</p></div></li>
+        <li><span className="small muted">Consumer &amp; Community Banking, 2026</span><div><h3>JPMorgan Chase, VP, Staff Design Engineer</h3><p>Making the Manhattan Design System AI-native where design turns into code, measured by design-to-code cycle time.</p></div></li>
+      </ol>
+
+      <h2 style={{ marginTop: '3.5rem' }}>How I work</h2>
+      <p className="lede" style={{ marginTop: '0.6rem' }}>Four habits, borrowed from a very old grammar.</p>
+      <div className="hero-grid" style={{ marginTop: '1rem' }}>
+        <ol className="prose">
+          <li>Name a set once, then refer to it everywhere.</li>
+          <li>State the rule in one line. Keep the reasoning one tap away.</li>
+          <li>Write it so people and agents read the same thing.</li>
+          <li>Test that the agent followed it, and publish the score.</li>
+        </ol>
+        <DemoRenderer name="pratyahara" caption="Pāṇini named sets of sounds with two letters, more than two thousand years before design tokens did." />
+      </div>
+
       <h2 style={{ marginTop: '3.5rem' }}>Facts</h2>
       <dl className="facts" style={{ maxWidth: '44rem', marginTop: '1.2rem' }}>
         <dt>Now</dt><dd>Staff Design Engineer (VP), JPMorgan Chase, Bengaluru</dd>
-        <dt>Before</dt><dd>Senior UX Engineer, JPMorgan Chase; eleven years at SAP, UI Developer to Innovation Architect</dd>
-        <dt>Education</dt><dd>M.Tech Software Engineering, BITS Pilani; BCA, BIT Mesra</dd>
+        <dt>Education</dt><dd>M.Tech Software Engineering, BITS Pilani (2016); BCA, BIT Mesra (2012)</dd>
         <dt>Stack</dt><dd>TypeScript, React, Next.js, design tokens, MCP, LLM evaluation, WebGPU, accessibility (WCAG)</dd>
-        <dt>Open to</dt><dd>Staff roles in Europe and beyond</dd>
+        <dt>Open to</dt><dd>Staff Design Engineer, UX Engineer, Design Technologist and Applied AI roles, in Europe and beyond</dd>
+        {site.showRelocation && (<><dt>Can start</dt><dd>3 months after an offer</dd><dt>Work permit</dt><dd>Germany: qualifies for the EU Blue Card</dd></>)}
       </dl>
+      <div className="card" style={{ marginTop: '1.2rem', maxWidth: '44rem' }}><TimeOverlap /></div>
 
       <section id="contact" style={{ marginTop: '3.5rem', scrollMarginTop: '90px' }} aria-labelledby="c-h">
         <h2 id="c-h">Get in touch</h2>

@@ -12,6 +12,7 @@ import Footer from '@/components/Footer';
 import AskSai from '@/components/AskSai';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
+import { themeScript } from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -42,7 +43,10 @@ const person = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
         <Header />

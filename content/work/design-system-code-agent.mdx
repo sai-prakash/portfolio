@@ -1,0 +1,34 @@
+---
+title: Design-system code agent
+headline: Let the agent build only with parts the design system owns.
+description: An in-browser agent that builds screens only from the Manhattan Design System's real React components, with checks before anything is shown. Single- and multi-screen generation work today.
+org: JPMorgan Chase, Manhattan Design System
+role: Architecture, multi-screen generation and the data corpus, hands-on
+period: 2026
+state: build
+metric: ''
+metricLabel: ''
+order: 6
+status: published
+track: both
+---
+
+<EditorNote>
+Proprietary and in build: keep to this level unless cleared. Confirm the 5,000+ users goal is OK to state publicly.
+</EditorNote>
+
+## The problem
+
+General code generators ignore the design system, so the screens they produce get rebuilt by hand. The faster the generator, the more rework it creates.
+
+## The move
+
+An in-browser agent that builds screens only from the design system's real React components, and runs checks before anything is shown. If the system doesn't have a part, the agent can't invent one.
+
+## Where it is
+
+Single-screen and multi-screen generation work. The goal is React, iOS and Android for 5,000+ internal users. Feedback pushed the work toward real production screens, so I'm building a corpus from them to validate against.
+
+## Try the idea
+
+The [playground](/playground) on this site is a small, public version of the same idea, built on this site's own design system.

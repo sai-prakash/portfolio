@@ -11,6 +11,10 @@ export const site = {
   location: 'Bengaluru, India',
   // Booking link for recruiters. Leave empty to fall back to email.
   calendar: '',
+  // Your usual working hours in Bengaluru (IST, UTC+5:30), used by the time-zone overlap on /hire.
+  workHours: { start: 9, end: 18 },
+  // Show relocation details (start date, EU Blue Card) on /hire. Off until you decide to say it publicly.
+  showRelocation: false,
 } as const;
 
 export const tracks = {
