@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sai Prakash — Staff Design Engineer, AI agents and design systems</title>
+<meta name="description" content="Sai Prakash makes AI agents build interfaces that follow the design system, and measures whether they did. Staff Design Engineer at JPMorgan Chase, Bengaluru. Twelve years across design and code.">
+<link rel="canonical" href="https://saiprakash.design/">
+<meta property="og:title" content="Sai Prakash — Staff Design Engineer">
+<meta property="og:description" content="AI agents that build on-system UI, the checks that prove it, and AI products a bank actually ships.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://saiprakash.design/">
+<meta name="theme-color" content="#1E1A4D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#EDEFF2;
+  --ink:#1E1A4D;
+  --ink-2:#4B4870;
+  --cobalt:#3446E0;
+  --flag:#B8321C;
+  --pass:#17734A;
+  --panel:#FFFFFF;
+  --line:#CDD1DA;
+  --display:"Bricolage Grotesque", system-ui, sans-serif;
+  --text:"Source Serif 4", Georgia, serif;
+  --code:"IBM Plex Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--wall);color:var(--ink);font-family:var(--text);font-size:1.15rem;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--cobalt);text-underline-offset:.2em;text-decoration-thickness:.07em}
+a:hover{text-decoration-thickness:.14em}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:1rem;top:-4rem;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:10;font-family:var(--display)}
+.skip:focus{top:1rem}
+.wrap{max-width:76rem;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;font-weight:700}
+h2{font-size:clamp(2rem,4.2vw,3.2rem);letter-spacing:-.02em;font-variation-settings:"wdth" 82;max-width:18ch}
+h3{font-size:1.45rem;letter-spacing:-.01em;line-height:1.15}
+p{margin:0 0 1rem;max-width:36rem}
+section{padding:6rem 0}
+
+/* header */
+header.site{padding:1.4rem 0}
+.bar{display:flex;align-items:baseline;gap:2rem;flex-wrap:wrap}
+.name{font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--ink);text-decoration:none}
+nav ul{list-style:none;display:flex;gap:1.5rem;margin:0;padding:0;font-family:var(--display);font-size:1rem}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{text-decoration:underline}
+.bar .mail{margin-left:auto;font-family:var(--display);font-size:1rem}
+@media (max-width:720px){nav{order:3;width:100%}.bar{gap:.8rem 1.5rem}}
+
+/* hero */
+.hero{padding:3.5rem 0 5rem}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3.5rem;align-items:start}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.seg{font-size:.82rem}.seg label{padding:.35rem .6rem}}
+.hero h1{font-size:clamp(2.6rem,5.4vw,4.6rem);letter-spacing:-.035em;font-variation-settings:"wdth" 78;font-weight:750;max-width:14ch}
+.hero .intro{margin-top:1.8rem;font-size:1.25rem}
+.links{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem;font-family:var(--display)}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:.7rem 1.25rem;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;border:2px solid var(--ink)}
+.btn:hover{background:#2E2970}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:#fff}
+
+/* bench demo */
+.bench{background:var(--panel);border-radius:14px;border:1px solid var(--line);overflow:hidden}
+.bench-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.bench-head h2{font-size:1.05rem;letter-spacing:0;font-variation-settings:"wdth" 100;max-width:none;font-weight:600}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;padding:3px;font-family:var(--display);font-size:.92rem}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{white-space:nowrap;padding:.38rem .85rem;border-radius:999px;cursor:pointer;color:var(--ink)}
+.seg input:checked + label{background:var(--ink);color:#fff}
+.seg input:focus-visible + label{outline:3px solid var(--cobalt);outline-offset:2px}
+.prompt{padding:1rem 1.2rem;font-family:var(--display);font-size:1rem;border-bottom:1px solid var(--line);background:#F7F8FA}
+.prompt b{font-weight:600}
+pre{margin:0;padding:1.1rem 1.2rem;font-family:var(--code);font-size:.86rem;line-height:1.7;overflow-x:auto;color:#2A2750;border-bottom:1px solid var(--line);min-height:10.5rem}
+pre .bad{background:#FBE7E3;color:var(--flag);border-radius:3px;box-shadow:0 0 0 2px #FBE7E3}
+pre .good{background:#E2F2EA;color:var(--pass);border-radius:3px;box-shadow:0 0 0 2px #E2F2EA}
+ul.checks{list-style:none;margin:0;padding:.6rem 1.2rem 1rem;font-family:var(--display);font-size:.98rem}
+ul.checks li{display:grid;grid-template-columns:1.6rem 1fr;gap:.5rem;padding:.45rem 0;border-bottom:1px dashed var(--line)}
+ul.checks li:last-child{border-bottom:0}
+ul.checks .mark{font-weight:700;width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;font-size:.8rem;color:#fff;margin-top:.1rem}
+ul.checks .fail .mark{background:var(--flag)}
+ul.checks .ok .mark{background:var(--pass)}
+ul.checks small{display:block;color:var(--ink-2);font-size:.88rem}
+.tally{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.2rem;background:var(--ink);color:#fff;font-family:var(--display);font-size:1rem}
+.tally strong{font-size:1.2rem}
+.note{font-size:.9rem;color:var(--ink-2);margin-top:.8rem;font-family:var(--display)}
+
+/* results */
+.results{padding-top:2rem}
+.result-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;border-top:2px solid var(--ink);padding-top:2rem}
+@media (max-width:900px){.result-row{grid-template-columns:1fr;gap:2.2rem}}
+.result-row h3{font-size:1.15rem;font-variation-settings:"wdth" 90}
+.result-row p{font-size:1rem;color:var(--ink-2);margin:.5rem 0 0}
+.bars{margin-top:1rem;font-family:var(--display);font-size:.95rem}
+.bars div{display:grid;grid-template-columns:4.6rem 1fr;align-items:center;gap:.6rem;margin-bottom:.4rem}
+.bars i{display:block;height:14px;border-radius:7px}
+.bars .before i{background:#B9BDD0}
+.bars .after i{background:var(--cobalt)}
+.hero-grid > *, .result-row > *{min-width:0}
+.result-row .big{color:var(--ink);font-family:var(--display);font-size:2.4rem;font-weight:750;letter-spacing:-.03em;line-height:1;margin-top:.9rem;font-variation-settings:"wdth" 80}
+
+/* work */
+.work-list{margin-top:3rem;border-top:2px solid var(--ink)}
+article.case{border-bottom:1px solid var(--line);padding:2.2rem 0;display:grid;grid-template-columns:17rem 1fr;gap:2.5rem}
+@media (max-width:860px){article.case{grid-template-columns:1fr;gap:.8rem}}
+.case .meta{font-family:var(--display);font-size:.95rem;color:var(--ink-2)}
+.case .meta strong{display:block;color:var(--ink);font-size:1rem}
+.status{display:inline-block;margin-top:.5rem;padding:.12rem .6rem;border-radius:999px;border:1.5px solid currentColor;font-size:.85rem}
+.status.live{color:var(--pass)}
+.status.wip{color:var(--cobalt)}
+.case h3{font-size:clamp(1.5rem,2.6vw,2rem);font-variation-settings:"wdth" 85;max-width:26ch}
+.case .sum{margin-top:.8rem}
+details{margin-top:.6rem}
+summary{cursor:pointer;font-family:var(--display);font-weight:600;color:var(--cobalt);font-size:1rem;width:max-content}
+details[open] summary{margin-bottom:.8rem}
+.case dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.6rem 1.4rem;max-width:44rem;font-size:1.05rem}
+.case dt{font-family:var(--display);font-weight:600;font-size:.95rem;padding-top:.15rem}
+.case dd{margin:0}
+@media (max-width:560px){.case dl{grid-template-columns:1fr;gap:.2rem}.case dd{margin-bottom:.7rem}}
+
+/* path */
+.path-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:3.5rem;margin-top:1rem}
+@media (max-width:900px){.path-grid{grid-template-columns:1fr;gap:2rem}}
+ol.path{list-style:none;margin:0;padding:0}
+ol.path li{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:1rem 0;border-top:1px solid var(--line)}
+ol.path li:first-child{border-top:2px solid var(--ink)}
+ol.path .where{font-family:var(--display);font-weight:600}
+ol.path p{margin:0;font-size:1.05rem}
+ul.beliefs{list-style:none;margin:0;padding:0}
+ul.beliefs li{padding:1.1rem 0;border-top:1px solid var(--line)}
+ul.beliefs li:first-child{border-top:2px solid var(--ink)}
+ul.beliefs strong{font-family:var(--display);font-size:1.2rem;display:block;font-weight:650;line-height:1.25}
+ul.beliefs span{display:block;font-size:1.02rem;color:var(--ink-2);margin-top:.3rem}
+
+/* contact */
+#meet{background:var(--ink);color:#fff}
+#meet h2{color:#fff;max-width:20ch}
+#meet p{color:#D9D7F0}
+#meet a{color:#fff}
+.contact{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;font-family:var(--display)}
+.contact .btn{background:#fff;color:var(--ink);border-color:#fff}
+.contact .btn:hover{background:#E4E3F7}
+.contact .btn.ghost{background:transparent;color:#fff}
+.contact .btn.ghost:hover{background:#2E2970}
+footer{background:var(--ink);color:#B9B6DC;font-family:var(--display);font-size:.92rem;padding:0 0 2.5rem}
+footer .wrap{border-top:1px solid #3B3670;padding-top:1.5rem}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="name" href="#top">Sai Prakash</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#path">Path</a></li>
+        <li><a href="#meet">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="mail" href="mailto:saiprak@gmail.com">saiprak@gmail.com</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>I make AI agents build on-system UI, and prove they did.</h1>
+        <p class="intro">Staff Design Engineer at JPMorgan Chase in Bengaluru. Twelve years across design and code, eleven of them at SAP. Today I build the tooling that lets coding agents use a design system properly, the checks that grade what they produce, and AI products the bank runs every day.</p>
+        <div class="links">
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn ghost" href="#meet">Get in touch</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="bench" role="region" aria-labelledby="bench-h">
+          <div class="bench-head">
+            <h2 id="bench-h">Same prompt, two agents</h2>
+            <div class="seg" role="radiogroup" aria-label="Which agent run to show">
+              <input type="radio" name="run" id="run-a" value="a" checked><label for="run-a">Without the system</label>
+              <input type="radio" name="run" id="run-b" value="b"><label for="run-b">With the system</label>
+            </div>
+          </div>
+          <p class="prompt" style="margin:0;max-width:none"><b>Prompt:</b> add a payment approval form with a reference field</p>
+          <pre id="code" aria-label="Code the agent generated"></pre>
+          <ul class="checks" id="checks" aria-live="polite"></ul>
+          <div class="tally"><span>Checks passed</span><strong id="tally">0 of 4</strong></div>
+        </div>
+        <p class="note">An illustrative example, not production code. The real checks run on agent output at work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="results" aria-labelledby="results-h">
+    <div class="wrap">
+      <h2 id="results-h" style="font-size:1.4rem;font-variation-settings:'wdth' 100;margin-bottom:1.2rem;max-width:none">What's shipped</h2>
+      <div class="result-row">
+        <div>
+          <h3>PromptForge</h3>
+          <p>LLM document extraction, now used in the commercial bank to create and verify golden data.</p>
+          <div class="bars" role="img" aria-label="Time per document fell from 90 minutes to 20 minutes">
+            <div class="before"><span>Before</span><i style="width:100%"></i></div>
+            <div class="after"><span>After</span><i style="width:22%"></i></div>
+          </div>
+          <p class="big">90 → 20 min</p>
+          <p>per document, a 78% cut</p>
+        </div>
+        <div>
+          <h3>Liquidity Co-Pilot</h3>
+          <p>An AI assistant for cash positioning, with high adoption among the team that uses it.</p>
+          <div class="bars" role="img" aria-label="Task time fell from 218 minutes to 37 minutes">
+            <div class="before"><span>Before</span><i style="width:100%"></i></div>
+            <div class="after"><span>After</span><i style="width:17%"></i></div>
+          </div>
+          <p class="big">218 → 37 min</p>
+          <p>for the core task</p>
+        </div>
+        <div>
+          <h3>Design system checks</h3>
+          <p>Started as a linter that won an internal hackathon. Teams asked for it after the demos; it now grades agent-generated code on web, with Android and iOS in progress.</p>
+          <p class="big" style="margin-top:1.6rem">Web live</p>
+          <p>mobile next</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Selected work</h2>
+      <p style="margin-top:1rem">Bank work is described at the level I can share in public. I'm happy to go deeper in a conversation.</p>
+      <div class="work-list">
+
+        <article class="case">
+          <div class="meta"><strong>JPMorgan Chase</strong>Manhattan Design System team<br><span class="status live">Web in use</span></div>
+          <div>
+            <h3>Checks that grade what coding agents build</h3>
+            <p class="sum">Agents write UI fast, but they guess: hard-coded colours, hand-rolled buttons, missing labels. I built the checks that catch this in generated code and score it against the design system, so a team can tell whether an agent's output is getting better or just looks busier.</p>
+            <details>
+              <summary>How it came together</summary>
+              <dl>
+                <dt>Problem</dt><dd>Design system violations reached production because nobody could see them at scale, in code or on screen.</dd>
+                <dt>What I built</dt><dd>A linter that flags violations on screen and in code, including in apps that were never built on the system. It won the hackathon it started in, and grew into a graded evaluation of agent output.</dd>
+                <dt>Now</dt><dd>Running on web; Android and iOS in progress. Presented up the leadership chain.</dd>
+              </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="meta"><strong>JPMorgan Chase</strong>Manhattan Design System team<br><span class="status live">Built</span></div>
+          <div>
+            <h3>A design system that agents can read</h3>
+            <p class="sum">Component docs are written for people. I rebuilt them for agents: specs in tiers so an agent loads a small core first and pulls the full detail only when it needs it, served through an MCP server so any coding agent can ask the system directly.</p>
+            <details>
+              <summary>How it came together</summary>
+              <dl>
+                <dt>Problem</dt><dd>Agents given the whole design system run out of context; agents given none of it invent their own.</dd>
+                <dt>What I built</dt><dd>An agentic documentation pipeline with tiered specs, and an MCP server over the system's components and tokens. The reference pattern covers 22 edge cases and 52 token bindings, with passing evals.</dd>
+              </dl>
+            </details>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="meta"><strong>JPMorgan Chase</strong>Commercial bank<br><span class="status live">In production</span></div>
+          <div>
+            <h3>PromptForge: LLM document extraction</h3>
+            <p class="sum">Turning long financial documents into verified structured data took 90 minutes a document. PromptForge brought it to 20, and is now the tool the commercial bank uses to create and verify golden data.</p>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="meta"><strong>JPMorgan Chase</strong><br><span class="status live">Shipped</span></div>
+          <div>
+            <h3>Liquidity Co-Pilot</h3>
+            <p class="sum">An AI assistant for cash positioning. The task it supports went from 218 minutes to 37, with high adoption.</p>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="meta"><strong>Open source</strong><br><span class="status wip">In progress</span></div>
+          <div>
+            <h3>ds-bench-de: how agent-ready are German design systems?</h3>
+            <p class="sum">A public leaderboard that tests public design systems, including SAP UI5, Siemens iX and Telekom Scale, on how well coding agents can build with them.</p>
+            <p><a href="https://github.com/sai-prakash/ds-bench-de">View ds-bench-de on GitHub</a></p>
+          </div>
+        </article>
+
+      </div>
+      <p style="margin-top:2rem">More public work: <a href="https://github.com/sai-prakash/entropy-RLAF">entropy-RLAF</a> and <a href="https://github.com/sai-prakash/agentic-design-thinking">agentic-design-thinking</a> on <a href="https://github.com/sai-prakash">GitHub</a>.</p>
+    </div>
+  </section>
+
+  <section id="path" aria-labelledby="path-h" style="padding-top:2rem">
+    <div class="wrap">
+      <h2 id="path-h">How I got here</h2>
+      <div class="path-grid">
+        <ol class="path" aria-label="Career, oldest first">
+          <li><span class="where">BIT Mesra</span><p>BCA, 2012</p></li>
+          <li><span class="where">SAP</span><p>Eleven years: UI Developer, then Lead Product Designer, then Innovation Architect</p></li>
+          <li><span class="where">BITS Pilani</span><p>M.Tech in Software Engineering, 2016, while working</p></li>
+          <li><span class="where">JPMorgan Chase</span><p>Staff Design Engineer (VP). AI products, then the Manhattan Design System team</p></li>
+        </ol>
+        <ul class="beliefs" aria-label="How I work">
+          <li><strong>Measure the agent, not the demo.</strong><span>If you can't score the output, you can't tell whether a change helped.</span></li>
+          <li><strong>Write the system for its newest reader.</strong><span>That reader is now often a model with a small context window.</span></li>
+          <li><strong>Own the seam between design and code.</strong><span>Most quality gets lost in the handoff, so I try not to have one.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="meet" aria-labelledby="meet-h">
+    <div class="wrap">
+      <h2 id="meet-h">If this is the problem you're working on, let's talk.</h2>
+      <p style="margin-top:1.2rem">I'm open to conversations about Staff design engineering and applied AI roles, in Europe and beyond. Thirty minutes is usually enough to know.</p>
+      <div class="contact">
+        <a class="btn" href="mailto:saiprak@gmail.com">Email saiprak@gmail.com</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/prakashsai">LinkedIn</a>
+        <a class="btn ghost" href="https://github.com/sai-prakash">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Sai Prakash, Bengaluru. Views here are my own. Hand-built, keyboard-friendly, no tracking.</div>
+</footer>
+
+<script>
+(function(){
+  var runs = {
+    a: {
+      code: '<span class="bad">&lt;div</span> className="btn"\n     style={{ background: <span class="bad">"#0a5bd3"</span>, padding: 12 }}\n     onClick={approve}&gt;\n  Approve payment\n<span class="bad">&lt;/div&gt;</span>\n<span class="bad">&lt;input placeholder="Reference" /&gt;</span>',
+      checks: [
+        ['fail','Uses system components','A div is acting as a button. Use Button.'],
+        ['fail','Uses design tokens','Hard-coded #0a5bd3. Use the primary action colour token.'],
+        ['fail','Every field has a label','The reference input relies on placeholder text.'],
+        ['fail','Works with a keyboard','The div can\'t be reached with Tab.']
+      ]
+    },
+    b: {
+      code: '<span class="good">&lt;Button variant="primary"</span> onClick={approve}&gt;\n  Approve payment\n<span class="good">&lt;/Button&gt;</span>\n<span class="good">&lt;TextField label="Reference" /&gt;</span>\n\n',
+      checks: [
+        ['ok','Uses system components','Button and TextField from the system.'],
+        ['ok','Uses design tokens','Colour comes from the Button variant.'],
+        ['ok','Every field has a label','TextField renders a visible label.'],
+        ['ok','Works with a keyboard','Native button, focus ring from the system.']
+      ]
+    }
+  };
+  var code = document.getElementById('code'), list = document.getElementById('checks'), tally = document.getElementById('tally');
+  function show(k){
+    var r = runs[k];
+    code.innerHTML = r.code;
+    list.innerHTML = r.checks.map(function(c){
+      return '<li class="'+c[0]+'"><span class="mark" aria-hidden="true">'+(c[0]==='ok'?'✓':'✕')+'</span><span><span class="visually">'+(c[0]==='ok'?'Pass: ':'Fail: ')+'</span>'+c[1]+'<small>'+c[2]+'</small></span></li>';
+    }).join('');
+    var n = r.checks.filter(function(c){return c[0]==='ok';}).length;
+    tally.textContent = n + ' of ' + r.checks.length;
+  }
+  var a = document.getElementById('run-a'), b = document.getElementById('run-b');
+  a.addEventListener('change', function(){ if(a.checked){ userTouched = true; show('a'); }});
+  b.addEventListener('change', function(){ if(b.checked){ userTouched = true; show('b'); }});
+  var userTouched = false;
+  show('a');
+  // one orchestrated moment: after a pause, switch to the run with the system, unless the visitor has acted or prefers less motion
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!calm) setTimeout(function(){ if(!userTouched){ b.checked = true; show('b'); } }, 3200);
+})();
+</script>
+<style>.visually{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+</body>
+</html>
