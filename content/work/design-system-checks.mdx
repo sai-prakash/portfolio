@@ -1,34 +1,71 @@
 ---
-title: Design system checks
-headline: Checks that grade what coding agents build.
-description: A linter that won an internal hackathon grew into checks that grade AI-generated code against a large bank's design system. Ready on web, with Android and iOS in progress.
+title: Design-system checks
+headline: A hackathon linter became the way we grade what coding agents build.
+description: Checks that grade AI-generated UI against a large bank's design system, from a hackathon-winning linter. Ready on web, with Android and iOS in progress.
 org: JPMorgan Chase
-role: Designed and built it
+role: Designed and built it, and presented it to design leadership
 period: 2026
 state: build
-metric: Web
-metricLabel: ready, mobile in progress
+metric: ''
+metricLabel: ''
 order: 3
 status: published
 track: design-engineering
 ---
 
-## The problem
+## Context
 
-Coding agents write UI fast, but they guess. Hard-coded colours, hand-rolled buttons and missing labels slip into production because nobody can see them at scale. The same problem existed before agents; agents just multiplied it.
+Coding agents write interface code quickly, and they guess. Colours are hard-coded instead of taken from the design system's tokens. Buttons are hand-rolled where a component exists. Labels go missing. None of this is new: people did all of it before agents. Agents just do it faster and in larger volume, and nobody reads that much code.
+
+The question I wanted to answer was simple and had no good answer: when a team changes a prompt, a model or a piece of documentation, did the agent's output actually get better? Without a measure, every improvement is an opinion.
+
+## Role, and the team
+
+I designed and built the checks, and presented them. This started as my own project for an internal design-organisation hackathon in 2026, and I carried it from there. The people who adopted it were designers, product teams and engineers across the design organisation. I do not name teams or colleagues on this page.
+
+## Constraints
+
+- **A regulated bank.** Internal code and screens stay inside the bank, so the tooling has to as well.
+- **Apps that were never built on the system.** The interesting targets were the applications teams want to migrate. They do not use the design system's components, so a check that only works on compliant code is useless where it matters most.
+- **A moving target.** The thing being graded, an agent's output, changes with every prompt and model. The check has to be stable even though what it grades is not.
+- **Another team had built a gate.** A separate engineering team was building a pass or fail validation across the bank. That is a different job from mine, and I had to be clear about the difference.
 
 ## What I built
 
-It started as a linter for a hackathon: point it at an app, on screen or in code, and it shows where the design system is being broken. It works on apps that were never built on the system, which turned out to matter most, because those are the apps teams want to migrate. It won the hackathon, and teams started asking for it after the first demos.
+It began as a linter for the hackathon. You point it at an application, in code or running in a browser, and it shows where the design system is being broken. It lived in three places: in the editor, where it flags violations as you type; in the browser, where it scans a running application; and in an agent's workflow, where it checks what the agent has just produced and hands the problems back.
 
-From there it became a way to grade agent output. The same checks score what an agent generates, so a team can tell whether a new prompt, model or doc change actually made the output better.
+The hackathon presentation mattered more than I expected. I built it as a live, three-dimensional demo with the audio and visuals timed together, and I hardened it for a live room: a recorded video fallback made first, projector presets, a presenter's keyboard controls with an instant skip, and everything preloaded before the first slide. The audience responded strongly, and it was reportedly still being talked about hours later. It was not a formal award, and I describe it as what it was: a well-received presentation.
 
 <Demo name="checks-compare" caption="Illustrative example of the kind of checks involved. Not production code." />
 
-## Where it is now
+## Options considered
 
-Ready on web. Android and iOS are in progress. I've presented it up the leadership chain as the measurement layer for AI-assisted UI work.
+**Build it as a gate.** The obvious design is a pass-or-fail check that blocks a release. A colleague team was building exactly that, across the bank. I did not compete with it. A gate is about breadth and compliance. What I was building was about depth and quality on generated output, with feedback that an agent can act on. I framed the two as tiers: theirs is the gate, mine measures quality and should feed their rules. That framing kept a possible turf argument from becoming one.
+
+**A human review rubric.** Reviewing every generated screen by eye does not scale, and reviewers disagree. Machines are good at catching tokens and missing labels. People are good at taste. I made the checks catch the first so that reviewers could spend their time on the second.
+
+**Only grade code that follows the system.** I rejected this. See the constraints.
+
+## Key decisions
+
+**Grade the output, not the model.** The checks score what an agent produced. That means the same checks work with any model, any prompt and any documentation, which is the whole point: a team can change one thing and see whether the score moved.
+
+**Work on apps that were never built on the system.** This turned out to be the feature that made teams ask for it after the first demos, because those are the applications they most want to migrate.
+
+**Report findings someone can act on.** A score alone is a verdict. A finding that says what is wrong, why it matters and what the system provides instead is something an agent, or a person, can act on. I learned that from the research on an internal Figma plugin and carried it over.
+
+## Outcome
+
+It is ready on web. Android and iOS are in progress. I presented it up the leadership chain as the measurement layer for AI-assisted UI work, and teams began asking for it after the first demos.
+
+I am deliberately not publishing numbers here. The adoption and scoring figures have not been cleared for publication, so this page describes what it does and not how much.
 
 <Callout tone="note">
-The internals are not public. Happy to talk through the approach in an interview.
+The internals are not public, and this page describes outcomes only. I am glad to talk through the approach in an interview.
 </Callout>
+
+## Influence beyond the team
+
+The checks were taken to design leadership as the measurement layer for AI-assisted UI work. The same idea, built only from public material, is open: [ds-bench-de](/work/ds-bench-de) applies it to public design systems, and the [playground](/playground) on this site runs a real model against this site's own rules.
+
+The broader programme this belongs to is on [Design systems for agents](/work/design-systems-for-agents).

@@ -1,32 +1,80 @@
 ---
 title: PromptForge
-headline: A manual ground-truth job became an AI-assisted review.
-description: PromptForge is an LLM platform for document extraction and annotation. The model pre-fills, people verify, and a manual reference-data process became an AI-assisted one at a large bank.
+headline: Nobody asked for it. A two-week prototype turned a manual job into a review.
+description: PromptForge is an LLM platform for document extraction and annotation at a large bank. The model pre-fills, people verify, and a manual reference-data process became an AI-assisted one.
 org: JPMorgan Chase
-role: ''
-period: ''
+role: Proposed it, led frontend architecture, designed the UX, integrated the LLM pipelines
+period: 2023 to 2024
 state: production
-metric: ""
-metricLabel: ""
+metric: ''
+metricLabel: ''
 order: 2
 status: published
 track: applied-ai
 ---
 
-## The problem
+## Context
 
-Turning long financial documents into structured, verified data was slow and manual: slow. The output feeds other systems, so it has to be right, not just fast.
+A large bank depended on people reading long financial documents and typing what they found into structured records. Those records were the ground truth that other work was tested against, including the bank's early AI projects. Analysts produced them by hand.
 
-## The approach
+That was the bottleneck. Downstream AI work needed reference data, reference data needed analysts, and analysts were slow, careful and busy. The slowness was not a failing. The accuracy requirement was high, because everything built on the records inherited their mistakes.
 
-PromptForge pairs LLM extraction with a review flow built for people who are accountable for the result. The model proposes values and points to where in the document it found them; a reviewer accepts, corrects or rejects. Corrections are captured, so the prompts and checks get better over time.
+## Nobody asked for this
 
-## Result
+PromptForge was not a ticket. I noticed the pattern, saw that an LLM could do a good first pass on the reading, and proposed a platform. I did not have the authority to commission one.
 
-Document processing got much faster, and PromptForge moved beyond a project: teams across the bank now use it to create and verify the reference records that other systems are tested against.
+That shaped how I went about it. I did not write a proposal. I built a working prototype in two weeks and showed it to three analysts. They wanted it immediately, and their reaction did more than any slide would have. I took that enthusiasm to leadership, and approval followed. Proof over proposals is a habit I have kept.
 
-## What made it work
+## My role, and the team
 
-- **Show the evidence.** Every extracted value links back to its place in the source.
-- **Make correcting cheap.** If fixing the model is slower than doing it by hand, people stop trusting it.
-- **Treat corrections as data.** The review step is also the evaluation set.
+I identified the opportunity, led the frontend architecture, ran user research with fifteen analysts, designed the UX, designed the system (React, Python and AWS) and integrated the LLM pipelines. I shipped it in four months with two engineers whom I mentored. The state-management patterns we used in React were later adopted across the wider engineering pod.
+
+Timeline: it ran from 2023 into 2024 and reached production.
+
+## Constraints
+
+- **Accuracy over speed.** Records feed other systems. A fast wrong answer costs more than a slow right one.
+- **A bank's data boundary.** The documents are sensitive, so the platform is built on the bank's own cloud, with no shortcuts through outside services.
+- **People who are accountable.** The analysts' names are on the records. Any design that made them feel replaced, or that made them responsible for what a model got wrong without a way to check it, would have been rejected, rightly.
+- **LLM latency.** A model call takes several seconds. Nobody wants to watch a spinner for each field.
+
+## Options considered
+
+**Fine-tuning a model versus prompt engineering.** This was the hardest technical decision. I tested both. Prompt engineering got most of the accuracy for a small fraction of the cost and time, so I chose it, shipped, and left room to iterate later. Fine-tuning was not wrong in principle. It was the wrong first move: it would have taken far longer to get anything in front of an analyst, and their feedback was worth more than the last bit of accuracy.
+
+**Full automation versus review.** I could have aimed at removing people from the loop. I rejected that early. At the accuracy bar the work demanded, full automation would have been unsafe, and analysts would never have trusted it. The target was to change the analyst's job from typing to verifying.
+
+**Build it quietly versus show it early.** A shared platform needs sponsors. Showing a rough prototype to the people who would use it made them allies before it could become a project that happened to them.
+
+## Key decisions
+
+**Verify, don't enter.** The design principle of the product. The model pre-fills every field and points to where in the document it found the value. The analyst's task is to accept, correct or reject. Verifying is faster than entering and, I think, less error-prone, because the evidence is next to the value instead of in another window.
+
+**An interface that hides model latency.** A model call takes a few seconds. I built an optimistic UI state machine so that the interface responds to the analyst's action at once and reconciles with the model's result as it arrives. The wait is still there; the user stops feeling it. That meant careful state design in React and Zustand, which is the pattern the wider pod later adopted.
+
+**Corrections are data.** Every correction an analyst makes tells us where the prompts are weak. The review step doubles as an evaluation set, so the system improves from use and not only from my attention.
+
+## Outcome
+
+The result I can state plainly is that a manual ground-truth process became an AI-assisted one, in production, used by operations staff across more than one business area. The savings were estimated at <Metric id="promptforge-value" fallback="a figure I will publish once it has been cleared" /> a year. How much time it saves per document has been reported in different ways, so I am not publishing a single percentage here. The honest summary is that a task people dreaded became one they could do with the evidence in front of them.
+
+It also changed what happened to me. This project preceded my promotion to vice president.
+
+## Pushback
+
+A senior architect questioned whether an LLM could meet the accuracy bar. I did not argue it in a meeting. We ran a two-week pilot with hard metrics, and the data settled it. I would do that again. It is a better use of two weeks than a month of opinions.
+
+## What I would change
+
+I would put observability in from the first day, not add it after launch. I added it afterwards. When a model is part of a workflow you want to know, per field, how often people correct it and why, and you want to know it from the first day.
+
+## Influence beyond the team
+
+I mentored the two engineers who built it with me. The React state patterns we used were adopted across the wider engineering pod. And the approach, a working prototype in front of the people who will use it, is how I like to start.
+
+## What I would tell another team
+
+- Build the smallest working version and put it in front of three real users before you write a business case.
+- Do the cheap experiment first. Prompt engineering and fine-tuning were a two-week comparison, not a debate.
+- Design the correction path first. If fixing the model is slower than doing the job by hand, people stop using it.
+- Add the instrumentation before launch.

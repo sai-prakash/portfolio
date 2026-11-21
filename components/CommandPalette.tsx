@@ -104,8 +104,8 @@ export default function CommandPalette({ cases, hasPosts }: Props) {
   let idx = -1;
   return (
     <>
-      <button type="button" className="icon-btn has-label cmd-btn" aria-label="Open command menu" aria-haspopup="dialog" onClick={open}>
-        <span aria-hidden="true">⌘K</span>
+      <button type="button" className="icon-btn has-label cmd-btn" aria-haspopup="dialog" onClick={open}>
+        <span className="visually-hidden">Command menu </span><span>⌘K</span>
       </button>
       <dialog
         ref={dlg}

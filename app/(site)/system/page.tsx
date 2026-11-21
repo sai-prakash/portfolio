@@ -39,10 +39,12 @@ export default function SystemPage() {
       </div>
 
       <h2 style={{ marginTop: '3.5rem' }}>Type</h2>
+      <div style={{ overflowX: 'auto' }}>
       <table className="prose" style={{ maxWidth: 'none', display: 'table', marginTop: '1rem' }}>
         <thead><tr><th scope="col">Token</th><th scope="col">Size</th><th scope="col">Face</th><th scope="col">Use</th></tr></thead>
         <tbody>{type.map((t) => <tr key={t.name}><td><code>{t.name}</code></td><td><code>{t.value}</code></td><td>{t.font}</td><td>{t.use}</td></tr>)}</tbody>
       </table>
+      </div>
 
       <h2 style={{ marginTop: '3.5rem' }}>Space and shape</h2>
       <div className="row" style={{ alignItems: 'flex-end', marginTop: '1rem' }} aria-label="Spacing scale in pixels">

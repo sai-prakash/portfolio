@@ -388,3 +388,7 @@ html[data-theme='dark'] { color-scheme: dark; }
   .nav { order: 0; width: auto; gap: 0.9rem; overflow: visible; font-size: var(--fs-s); }
   .brand { font-size: 1rem; }
 }
+
+.site-footer .muted { color: #C9CDEA; }
+main:has(.close) + .site-footer .footer-cta { display: none; }
+main:has(.close) + .site-footer { padding-top: 2rem; margin-top: 0; }

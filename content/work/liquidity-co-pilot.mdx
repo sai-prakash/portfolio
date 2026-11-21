@@ -3,30 +3,92 @@ title: Liquidity Co-Pilot
 headline: Analysts needed an AI they could argue with.
 description: A trust-first AI assistant for liquidity and collateral decisions at a large bank. It shows its evidence, can be challenged in one click, and analysts chose to use it.
 org: JPMorgan Chase
-role: ''
-period: ''
-state: shipped
-metric: ""
-metricLabel: ""
+role: Designed the Narrative Workflow pattern and the assistant's trust model
+period: 2023 to 2025
+state: production
+metric: ''
+metricLabel: ''
 order: 1
 status: published
 track: applied-ai
 ---
 
-## The problem
+## Context
 
-Liquidity and collateral decisions are careful, repetitive work. Before Liquidity Co-Pilot, most of an analyst's time went on gathering and reconciling information from separate systems, not on the decision itself.
+Liquidity and collateral pledging are decisions with money and regulation attached. An analyst deciding what to pledge, and where, has to pull together positions, constraints and context that live in separate systems, make a call, and be able to defend it later to someone senior.
 
-## What we built
+Before Liquidity Co-Pilot, a large share of that day went on gathering. The analyst moved between disconnected tools, rebuilt the picture by hand, and only then reached the part of the job that needs judgement. The brief I was working from was reasonable on its face: build an AI assistant to speed this up.
 
-An assistant that does the gathering and drafting, and leaves the decision with the person. The design principle was simple: the model prepares, the human approves. Every suggestion shows where it came from, so a specialist can check it in seconds instead of redoing it.
+## My role, and the team
 
-## Result
+I designed the assistant's trust model and its core interaction pattern, between 2023 and 2025: what it says, in what order, with what evidence, and what an analyst can do when they disagree with it. It was built with engineering colleagues, for analysts who gave us their time and their scepticism. The decisions on this page are the design decisions. Where a choice was engineering's, I say so.
 
-Analysts adopted it voluntarily, and asked for it in adjacent workflows.
+## The constraint that shaped everything
 
-## What I'd tell another team
+This is a regulated bank. Every output feeds a decision someone is accountable for. That has two consequences that no amount of model quality removes.
 
-- Measure the task before you build. A before number you trust is what turns a demo into a business case.
-- Design the review step as carefully as the generation step. That's where trust is won or lost.
-- Ship to the people who do the work first, then widen.
+First, an analyst cannot act on something they cannot check. A confident paragraph with no provenance is worse than nothing, because it invites either blind acceptance or blanket rejection. Second, trust in AI recommendations at the start was close to zero. People had seen fluent systems get things wrong. A faster tool they did not trust would simply not be used, however good the demo looked.
+
+So the project was never really about speed.
+
+## Reframing the problem
+
+The pitch said speed. The users said trust. I treated that gap as the real problem: if analysts would not rely on the output, no latency improvement would matter.
+
+That reframe changed what I designed. A speed product optimises the answer. A trust product optimises the analyst's ability to verify, question and override the answer, and treats those as the main interaction, not an escape hatch.
+
+## Options I considered
+
+**A standalone destination.** The obvious shape was a new application with a chat box. I rejected it. A new destination asks analysts to change where they work, and adoption in a bank lives or dies on that. I put the assistant inside the workflows analysts already used, so it surfaced insight where they already were and asked them to change nothing about their routine.
+
+**Raw model output.** Showing the model's answer directly was the cheapest option and the one I trusted least. A wall of generated text puts the whole burden of checking on the reader. I rejected it in favour of structure, below.
+
+**Batch-only data.** Engineering preferred batch processing for its simplicity. The product needed live data for the numbers that move a decision. The disagreement was real, and we settled it with a split: real-time for the critical metrics, batch for historical analysis. The reasoning that carried the room was about trust. A stale number inside a confident narrative is exactly how trust gets lost.
+
+## Key decisions
+
+**The Narrative Workflow.** Instead of returning raw outputs, the assistant builds a short argument in a fixed order: thesis, evidence, risks, recommendation. I chose that order because it matches how an analyst already defends a decision to a reviewer. The thesis says what the assistant thinks. The evidence is what supports it. The risks are what could make it wrong. Only then comes the recommendation. Putting risks before the recommendation was deliberate: it makes the assistant argue against itself in the open, and it gives the analyst the objections before they have to think of them.
+
+**Layered transparency.** Every claim carries its source, and the confidence behind it is shown as a band, not a single false-precision number. The analyst can stay at the top layer when the case is routine and drop down through the evidence when something looks off. The design goal was that checking should cost seconds, not a re-do of the work.
+
+**One-click "challenge this".** Any part of the narrative can be challenged directly. The analyst does not have to rewrite a prompt to push back. I wanted disagreement to be a first-class action, because an assistant that is easy to argue with is one people dare to use.
+
+**"AI maker, human validator".** This was the mental model that settled arguments. The assistant makes the first draft. The person validates and owns the decision. Every screen had to be consistent with that division, including the places where it would have been faster to let the AI decide.
+
+## The pattern in miniature
+
+Here is the shape of a narrative, with invented figures, so you can see why the order matters. Nothing below is real data.
+
+> **Thesis.** Pledge the government bonds first; they meet the requirement with the least cost to the desk.
+>
+> **Evidence.** Eligible, unencumbered, valued today (source: position feed, 09:40). Cheaper to pledge than the corporate holdings (source: pricing table).
+>
+> **Risks.** The valuation is a few minutes old. One counterparty's eligibility rules changed last month. Confidence: medium.
+>
+> **Recommendation.** Pledge the bonds, re-check the valuation before settlement.
+
+An analyst reads that top to bottom in under a minute and knows exactly which line to challenge. Compare that with a paragraph that says the same thing smoothly and hides the two things that could be wrong.
+
+## Outcome
+
+Adoption is the measure that mattered, because a decision-support tool nobody chooses to use has no impact. Voluntary adoption among analysts reached <Metric id="liquidity-adoption" fallback="a level analysts reached without being told to use it" />, and analysts asked for the assistant to be extended to adjacent workflows. Nobody mandated it. That request is the result I trust most.
+
+## What I am not publishing
+
+Impact for this project has been reported in several different ways over time: time saved per task, money saved, adoption trajectories, accuracy comparisons. Some of them measure different things, and some were taken over different windows. Presenting them side by side would imply a precision that I cannot source, so this page shows only a number I can trace to a cleared source, and the rest are left out on purpose. If you are hiring and want to go through the measurement history, I am happy to do that in conversation.
+
+## If you are building something similar
+
+Ask these before you design a screen:
+
+1. Who is accountable for the decision, and what will they be asked afterwards?
+2. What does checking cost them today, and what will it cost with your tool?
+3. What happens when the assistant is wrong? If the answer is "the user notices", have you made noticing easy?
+4. Where do these people already work, and can you go there instead of asking them to come to you?
+
+## What I would take from it
+
+- Start with why people will not use the thing. The first answer was trust, and it was not in the brief.
+- Put the objections before the recommendation. It changes how an analyst reads everything that follows.
+- Design the disagreement path as carefully as the happy path. It is where adoption is decided.
+- Embed the assistant in the work. Every extra place a person has to go is adoption lost.
