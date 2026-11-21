@@ -37,7 +37,7 @@ function scan(where, text) {
 const srcExt = /\.(mdx?|tsx?|json|css|txt|svg|html)$/;
 const srcFiles = [
   ...['content', 'app', 'components', 'lib', 'public'].flatMap((d) => walk(path.join(root, d), (p) => srcExt.test(p) && !/content\/facts\.json$|lib\/facts\.ts$/.test(p))),
-  path.join(root, 'README.md'),
+  ...fs.readdirSync(root).filter((f) => /\.md$/.test(f)).map((f) => path.join(root, f)),
 ].filter((f) => fs.existsSync(f));
 for (const f of srcFiles) scan(path.relative(root, f), fs.readFileSync(f, 'utf8'));
 

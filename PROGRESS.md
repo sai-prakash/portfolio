@@ -4,12 +4,12 @@ Branch: `overhaul/gold-standard`. Statuses: `Todo`, `In progress`, `Done (verifi
 Gate: `npm run verify` (types, unit tests, build, CV PDF, content gates, link check, CV parse). A11y, Lighthouse and screenshots are listed under Phase 5 until wired.
 
 ## Phase 0: stop the damage
-- [x] Before/after chart bug. Done (verified: root cause was next-mdx-remote v6 blocking `{218}` JS-expression props, so values arrived undefined; component now takes string props, validates finite numbers, renders only for a cleared fact; `tests/content-gates.test.mjs` fails on NaN, undefined and empty value-unit; built HTML grep shows 0 NaN)
-- [x] Banned internal names removed everywhere. Done (verified: `scripts/verify-content.mjs` scans source, built HTML/JSON/TXT, commit messages against `scripts/banned-terms.json`; passes; runs in CI via `.github/workflows/verify.yml`)
+- [x] Before/after chart bug. Done (verified: root cause was next-mdx-remote v6 blocking JS-expression props like `{n}`, so values arrived undefined; component now takes string props, validates finite numbers, renders only for a cleared fact; `tests/content-gates.test.mjs` fails on NaN, undefined and empty value-unit; built HTML grep shows 0 NaN)
+- [x] Internal names removed everywhere. Done (verified: `scripts/verify-content.mjs` scans source, built HTML/JSON/TXT, commit messages against `scripts/banned-terms.json`; passes; runs in CI via `.github/workflows/verify.yml`)
 - [x] Uncleared metrics removed; metrics render only from `facts.json`. Done (verified: gate fails on any non-cleared fact value and on the legacy list; `Metric` and `BeforeAfter` read `clearedMetric()`)
 - [x] `/writing` hidden until 3 essays; six dead links removed; link checker in CI. Done (verified: `/writing`, `/feed.xml` 404 and absent from nav, sitemap, llms.txt; `scripts/check-links.mjs` passes on built output)
-- [x] Stray "Pa / Sa / Sa" labels removed; slider replaced. Done (verified: component deleted; no drag slider on home; no 218/37 anywhere)
-- [x] "90 to to 20" stat removed. Done (verified: stat band deleted; gate would catch the numbers)
+- [x] Stray "Pa / Sa / Sa" labels removed; slider replaced. Done (verified: component deleted; no drag slider on home; no hard-coded figures in the component)
+- [x] Duplicated-text stat ("to to") removed. Done (verified: stat band deleted; gate would catch the numbers)
 - [ ] `saiprakash.design` pointed at this project, `sai-prakash.vercel.app` redirects to it. Blocked on Sai: DNS and Vercel steps in `LAUNCH.md` (nothing changed)
 - [x] `/about` added. Done (verified: 200, in sitemap, in nav)
 
@@ -50,7 +50,7 @@ Gate: `npm run verify` (types, unit tests, build, CV PDF, content gates, link ch
 - [ ] No-JS check. Static part Done (verified: gate checks one h1, title, description, canonical, og:image, Person JSON-LD on every built page); Playwright JS-off run Todo
 - [ ] Screenshots reviewed, Grok critique. Todo
 
-## Sai review list (patent freeze and publication safety)
+## Sai review list (publication safety)
 - The "Design systems for agents" page describes the benchmark's six scoring dimensions and the tiered-spec idea. Confirm with counsel these are clear.
 - The checks page describes outcomes only. Nothing about how they work.
 - Page for the code agent is reduced to one paragraph with no mechanism.
