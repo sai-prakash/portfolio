@@ -1,0 +1,25 @@
+{
+  "vpSince": null,
+  "roles": [
+    { "org": "SAP", "title": null, "start": null, "end": null },
+    { "org": "JPMorgan Chase", "title": null, "start": null, "end": null }
+  ],
+  "noticePeriod": null,
+  "germanCEFR": null,
+  "otherLanguages": null,
+  "workAuth": { "EU": "Blue Card eligible", "UK": null, "US": null, "CA": null },
+  "relocation": null,
+  "metrics": [
+    { "id": "liquidity-adoption", "value": "89% voluntary adoption", "kbStatus": "verified", "cleared": null, "source": null },
+    { "id": "promptforge-value", "value": "$1.2M", "kbStatus": "verified", "cleared": null, "source": null },
+    { "id": "liquidity-time", "value": null, "kbStatus": "conflicting", "cleared": null, "source": null },
+    { "id": "promptforge-time", "value": null, "kbStatus": "conflicting", "cleared": null, "source": null },
+    { "id": "plugin-usage", "value": null, "kbStatus": "conflicting", "cleared": null, "source": null }
+  ],
+  "ceoAward": null,
+  "patentWording": null,
+  "sapProducts": null,
+  "photo": null,
+  "recommendations": [],
+  "calendarUrl": null
+}

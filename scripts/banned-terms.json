@@ -1,0 +1,12 @@
+{
+  "banned": [
+    "Manhattan Design System", "Manhattan", "\\bMDS\\b", "\\bMDK\\b", "\\bAI Assist\\b", "golden data", "commercial bank",
+    "Wholesale Lending", "Wholesale Banking", "\\bCCB\\b", "\\bDCE\\b", "Consumer (&|&amp;|and) Community", "Corporate (&|&amp;|and) Investment Bank", "Design (&|&amp;|and) Client Experience", "\\bPDL\\b",
+    "Crossman", "Suraj", "\\bIdris\\b", "Rachit", "Belden", "Aavd", "\\bMichele\\b",
+    "patent", "fingerprint", "minimal-edit", "subtree attestation", "critique-and-repair", "CEO Award"
+  ],
+  "uncleared": [
+    "83\\s?%", "78\\s?%", "94\\.7", "\\$\\s?127\\s?B", "400\\+", "more than 400", "400 opens",
+    "\\b218\\b", "\\b37 (min|minutes)\\b", "\\b90 (to|→) 20\\b", "\\b20 minutes per document", "\\b90 minutes\\b"
+  ]
+}

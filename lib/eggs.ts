@@ -27,20 +27,9 @@ export function getFound(): EggId[] {
   return Array.from(new Set([...stored, ...memory]));
 }
 
-/** Records an egg. Returns true if it was newly found. */
-export function findEgg(id: EggId): boolean {
-  if (typeof window === 'undefined') return false;
-  const found = getFound();
-  if (found.includes(id)) return false;
-  const next = [...found, id];
-  memory = next;
-  try { localStorage.setItem(KEY, JSON.stringify(next)); } catch {}
-  window.dispatchEvent(new CustomEvent('egg', { detail: id }));
-  try {
-    track('egg_found', { id });
-    if (next.length === EGGS.length) track('eggs_complete');
-  } catch {}
-  return true;
+/** Easter-egg tracking was retired: no counter, no toasts. Kept as a no-op so call sites stay simple. */
+export function findEgg(_id: EggId): boolean {
+  return false;
 }
 
 /** Shared keyboard state so the `a` shortcut does not fire at the end of the Konami code (b, a). */

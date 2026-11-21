@@ -8,7 +8,14 @@
     "prebuild": "node scripts/build-index.mjs",
     "build": "next build",
     "start": "next start",
-    "index": "node scripts/build-index.mjs"
+    "index": "node scripts/build-index.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify:content": "node scripts/verify-content.mjs",
+    "test": "node --test tests/",
+    "cv:pdf": "node scripts/build-cv-pdf.mjs",
+    "verify:cv": "node scripts/check-cv-pdf.mjs",
+    "verify:links": "node scripts/check-links.mjs",
+    "verify": "npm run typecheck && npm test && npm run build && npm run cv:pdf && npm run verify:content && npm run verify:links && npm run verify:cv"
   },
   "engines": {
     "node": ">=20"
@@ -33,6 +40,7 @@
   "devDependencies": {
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
+    "playwright": "^1.65.1",
     "typescript": "^7.0.2"
   }
 }

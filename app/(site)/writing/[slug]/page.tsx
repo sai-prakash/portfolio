@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { formatDate, getPost, getPosts, tagSlug } from '@/lib/content';
+import { formatDate, getPost, getPosts, tagSlug, writingLive } from '@/lib/content';
 import Mdx from '@/components/Mdx';
 import HireBox from '@/components/HireBox';
 import JsonLd from '@/components/JsonLd';
@@ -10,11 +10,11 @@ import { site, tracks } from '@/lib/site';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return getPosts().map((p) => ({ slug: p.slug }));
+  return writingLive() ? getPosts().map((p) => ({ slug: p.slug })) : [{ slug: 'none' }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const p = getPost((await params).slug);
+  const p = writingLive() ? getPost((await params).slug) : undefined;
   if (!p) return {};
   return {
     title: p.title,
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const p = getPost((await params).slug);
+  const p = writingLive() ? getPost((await params).slug) : undefined;
   if (!p) notFound();
   const related = getPosts().filter((x) => x.slug !== p.slug && x.tags.some((t) => p.tags.includes(t))).slice(0, 3);
   return (

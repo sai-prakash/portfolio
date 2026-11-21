@@ -1,39 +1,27 @@
 import Link from 'next/link';
-import AskButton from './AskButton';
 import TrackLink from './TrackLink';
-import ThemeToggle from './ThemeToggle';
-import CommandPalette from './CommandPalette';
-import { AgentToggle } from './AgentView';
-import { getPosts, getWork } from '@/lib/content';
-
-const links = [
-  { href: '/work', label: 'Work' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/playground', label: 'Playground' },
-  { href: '/hire', label: 'Hiring?' },
-  { href: '/cv', label: 'CV' },
-];
+import { writingLive } from '@/lib/content';
 
 export default function Header() {
-  const hasPosts = getPosts().length > 0;
-  const nav = links.filter((l) => l.href !== '/writing' || hasPosts);
+  const links = [
+    { href: '/work', label: 'Work' },
+    ...(writingLive() ? [{ href: '/writing', label: 'Writing' }] : []),
+    { href: '/about', label: 'About' },
+    { href: '/cv', label: 'CV' },
+  ];
   return (
     <header className="site-header">
       <div className="wrap">
         <Link className="brand" href="/">Sai Prakash</Link>
         <nav aria-label="Main">
           <ul className="nav">
-            {nav.map((l) => (
+            {links.map((l) => (
               <li key={l.href}><Link href={l.href}>{l.label}</Link></li>
             ))}
           </ul>
         </nav>
         <div className="header-cta">
-          <CommandPalette cases={getWork().map((c) => ({ slug: c.slug, title: c.headline || c.title }))} hasPosts={hasPosts} />
-          <AgentToggle />
-          <ThemeToggle />
-          <AskButton />
-          <TrackLink className="btn small" href="/hire#contact" event="cta_meet" data={{ where: 'header' }}>Meet Sai</TrackLink>
+          <TrackLink className="btn small" href="/hire#contact" event="cta_meet" data={{ where: 'header' }}>Contact</TrackLink>
         </div>
       </div>
     </header>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getPosts, getTags } from '@/lib/content';
+import { notFound } from 'next/navigation';
+import { getPosts, getTags, writingLive } from '@/lib/content';
 import { PostList } from '@/components/Cards';
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function WritingIndex() {
+  if (!writingLive()) notFound();
   const posts = getPosts();
   const tags = getTags();
   return (

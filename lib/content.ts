@@ -69,6 +69,12 @@ export function getPosts(): Post[] {
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
+/** Writing stays off the site (nav, sitemap, RSS, pages) until at least this many essays are published. */
+export const WRITING_MIN = 3;
+export function writingLive(): boolean {
+  return getPosts().filter((p) => p.status === 'published').length >= WRITING_MIN;
+}
+
 export function getPost(slug: string) {
   return getPosts().find((p) => p.slug === slug);
 }

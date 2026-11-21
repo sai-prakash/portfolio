@@ -35,7 +35,6 @@ export default function AccessibilityPage() {
         <div className="aside-sticky">
           <SelfAudit />
           <p className="small muted">Known limits: the in-browser model needs WebGPU; without it, the guide quotes passages and the playground shows recorded runs. Found a problem? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
-          <p className="small"><Link href="/writing/accessibility-is-a-design-system-feature">Why accessibility belongs in the design system</Link></p>
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getPosts, getTags, tagSlug } from '@/lib/content';
+import { getPosts, getTags, tagSlug, writingLive } from '@/lib/content';
 import { PostList } from '@/components/Cards';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  const tags = getTags();
+  const tags = writingLive() ? getTags() : [];
   return tags.length ? tags.map((t) => ({ tag: t.slug })) : [{ tag: 'none' }];
 }
 
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
 
 export default async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
   const slug = (await params).tag;
-  const t = getTags().find((x) => x.slug === slug);
+  const t = writingLive() ? getTags().find((x) => x.slug === slug) : undefined;
   if (!t) notFound();
   const posts = getPosts().filter((p) => p.tags.some((x) => tagSlug(x) === slug));
   return (

@@ -38,7 +38,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
           {c.role && (<><dt>My role</dt><dd>{c.role}</dd></>)}
           {c.period && (<><dt>When</dt><dd>{c.period}</dd></>)}
           <dt>State</dt><dd>{stateLabel[c.state]}{c.status === 'draft' ? ' (draft page)' : ''}</dd>
-          {c.metric && (<><dt>Result</dt><dd>{c.metric} {c.metricLabel}</dd></>)}
         </dl>
       </header>
       <div className="wrap layout-article">

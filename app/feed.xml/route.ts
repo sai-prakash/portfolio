@@ -1,10 +1,11 @@
 export const dynamic = 'force-static';
-import { getPosts } from '@/lib/content';
+import { getPosts, writingLive } from '@/lib/content';
 import { site } from '@/lib/site';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export function GET() {
+  if (!writingLive()) return new Response('Not found', { status: 404 });
   const items = getPosts().filter((p) => p.status === 'published').map((p) => `
     <item><title>${esc(p.title)}</title><link>${site.url}/writing/${p.slug}</link><guid>${site.url}/writing/${p.slug}</guid>
     <pubDate>${new Date(p.publishedAt).toUTCString()}</pubDate><description>${esc(p.description)}</description></item>`).join('');

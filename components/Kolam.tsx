@@ -2,11 +2,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
 import { diamond, key, trace } from '@/lib/kolam';
+import Tanpura from './Tanpura';
 
 /**
  * A playable kolam. Every dot is a rule; the line is what gets built, and it has to pass every rule
  * without touching one. Tap a point to add or remove a rule and the line re-routes.
- * A bead travels the line and plays a note each time it rounds a rule (when the headline sound is on).
+ * A bead travels the line and plays a note each time it rounds a rule (when the visitor turns sound on).
  */
 const N = 9, S = 56, PAD = 40, SIZE = PAD * 2 + (N - 1) * S;
 const SCALE = [1, 9 / 8, 5 / 4, 3 / 2, 5 / 3, 2, 9 / 4, 5 / 2, 3];
@@ -39,7 +40,7 @@ export default function Kolam() {
     if (one && flags.current.edited && !flags.current.won) { flags.current.won = true; try { track('kolam_one_line', { rules: String(dots.size) }); } catch {} }
   }, [one, dots]);
 
-  // The bead: travels each line, lights the rule it rounds and asks the headline to play a note.
+  // The bead: travels each line, lights the rule it rounds and asks the optional sound to play a note.
   useEffect(() => {
     if (intro || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let raf = 0, last = performance.now(), visible = true, lastNote = 0;
@@ -135,10 +136,11 @@ export default function Kolam() {
       </div>
       <div className="kolam-foot">
         <p className="kolam-status"><strong>{status}</strong> {one ? 'One unbroken line through every rule. That is the job.' : 'Can you make it one line?'}</p>
-        <p className="kolam-note" aria-live="polite">{note || 'Every dot is a rule. The line is what an agent builds. Tap to add or remove a rule. Turn the sound on to hear it.'}</p>
+        <p className="kolam-note" aria-live="polite">{note || 'Every dot is a rule. The line is what an agent builds. Tap to add or remove a rule.'}</p>
         <div className="row">
           <button type="button" className="k-btn" onClick={surprise}>Surprise me</button>
           <button type="button" className="k-btn" onClick={() => { setDots(start()); setNote('Back to the start.'); }}>Start over</button>
+          <Tanpura />
           <details className="k-hint"><summary>Hint</summary><p>Try a rectangle of dots whose sides share no common factor, such as 4 by 5.</p></details>
         </div>
       </div>

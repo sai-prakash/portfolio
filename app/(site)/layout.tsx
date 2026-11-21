@@ -14,17 +14,17 @@ import Footer from '@/components/Footer';
 import AskSai from '@/components/AskSai';
 import Eggs from '@/components/Eggs';
 import AgentView from '@/components/AgentView';
-import ContactDock from '@/components/ContactDock';
 import Spotlight from '@/components/Spotlight';
 import JsonLd from '@/components/JsonLd';
 import { site } from '@/lib/site';
+import { writingLive } from '@/lib/content';
 import { themeScript } from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: site.title, template: '%s — Sai Prakash' },
   description: site.description,
-  alternates: { canonical: '/', types: { 'application/rss+xml': '/feed.xml', 'text/plain': '/llms.txt' } },
+  alternates: { canonical: '/', types: { ...(writingLive() ? { 'application/rss+xml': '/feed.xml' } : {}), 'text/plain': '/llms.txt' } },
   openGraph: { type: 'website', siteName: site.name, title: site.title, description: site.description, url: '/' },
   twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
@@ -61,7 +61,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AskSai />
         <Eggs />
         <AgentView />
-        <ContactDock />
         <Spotlight />
         <JsonLd data={person} />
         <Analytics />

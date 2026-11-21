@@ -48,12 +48,6 @@ Drafts show in development and on Vercel preview deployments (set `SHOW_DRAFTS=1
 3. Add `'my-demo': dynamic(() => import('./MyDemo'))` to `DemoRenderer.tsx`.
 4. It appears in the editor's "Live demo" menu.
 
-## Content plan
-
-See `content/PLAN.md`: 50 articles across seven clusters, 12 drafted.
-
 ## Before going public
 
-- Read every draft and case study; resolve every `EditorNote`.
-- Clear bank work with compliance. Keep the design system checks at the level of outcomes while the patent publication freeze is on.
-- Decide whether the "open to Europe" lines stay while you're employed.
+Run `npm run verify`. It builds the site and fails on banned terms, uncleared metrics, broken links and rendering glitches. Numbers only appear once they are marked `cleared: true` in `content/facts.json`.

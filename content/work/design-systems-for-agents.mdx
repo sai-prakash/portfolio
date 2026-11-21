@@ -1,0 +1,66 @@
+---
+title: Design systems for agents
+headline: "One design system, two kinds of reader: people and coding agents."
+description: "A programme of work at a large bank to make a design system usable by coding agents: tiered specs, an MCP tool design, model access for designers, and checks that measure the result."
+org: JPMorgan Chase
+role: "Designed and built the specs, tool design, SDK and checks; owned UX and research for the Figma plugin"
+period: 2025 to 2026
+state: build
+metric: ''
+metricLabel: ''
+order: 4
+status: published
+track: design-engineering
+---
+
+## The problem
+
+Component documentation is written for people who scroll. Coding agents do not scroll. They get a context window, and what they do with it decides whether the screen they build follows the design system or quietly invents its own.
+
+Give an agent the whole system and it runs out of room. Give it nothing and it guesses from training data. A year ago nobody on my team could say which of those failures was costing more, because nobody was measuring.
+
+This page is the programme that came out of that. Four pieces, one thread: treat the agent as a reader, then measure whether it read.
+
+## Tiered specs
+
+Each pattern's documentation is split into tiers that an agent loads in order:
+
+1. **Registry.** Every component in one line, so the agent can find the right one.
+2. **Core spec.** Props, variants and rules, kept under 12 KB so it can always be loaded.
+3. **Full spec.** Edge cases, states and examples, loaded only when the task needs them.
+4. **Tokens.** Exact values, for when precision matters.
+5. **Contact sheet.** Pictures of every state. This one is not context for the model. It is how a person or a checker verifies the result.
+
+That last distinction took me a while to see. I first treated the contact sheet as another document to feed the agent. It is evidence, not instruction, and keeping it out of the context window made the other tiers cleaner.
+
+<Demo name="tiered-spec" caption="Which tiers an agent loads depends on the task." />
+
+A pipeline writes the tiers from the human documentation: it extracts, drafts usage guidance and accessibility notes, edits, and then fact-checks every claim against the real source code. The fact-checker earned its place. Evaluation caught a genuine content error mid-build, and a drift check fired when a registry had not been rebuilt after a change.
+
+## An MCP server, designed before it was built
+
+An MCP server lets any coding agent ask the design system directly instead of guessing. My part was the tool design: I audited ten design-system MCP servers, then wrote a complete specification of ten tools with input and output schemas and the edge cases for each. The engineering team built the server from it.
+
+The audit found things worth knowing. One tool in most designs, "validate this usage", looks like a lookup and is really a linter, which needs a parser and a rule engine behind it. Several servers had arithmetic errors in how they scored themselves. And one widely quoted accuracy statistic about design-system context could not be traced to a source, so I took it out of my materials. A claim you cannot trace is a liability in a room full of engineers.
+
+## Model access for designers
+
+Designers who wanted to try an LLM used to file a ticket and wait. I built an SDK, a playground and an API server that put the firm's internal models directly in their hands, with an internal Figma plugin on top. I handed the plugin's codebase to engineering and kept ownership of its UX and research. That research changed the design in one specific way: a score is only useful if people trust it and know what to do next, so every finding says what is wrong, why it matters and shows the fix.
+
+## An agent that builds only from the system
+
+I also worked on an in-browser agent that builds screens only from the design system's real React components, with checks before anything is shown. If the system lacks a part, the agent cannot invent one. It generates single and multiple screens today. I am keeping the internals out of this page.
+
+## Checks, and the benchmark behind them
+
+The checks that grade agent output started as a hackathon linter. They are covered on their own page. The programme's measuring side is a benchmark: the same task given to an agent once with the human documentation and once with the tiered spec, scored on build success, compliance, accessibility, visual fidelity, completeness and code quality. On the one pattern I took all the way through, output from the tiered spec scored materially higher than output from the human docs.
+
+## What I would say about it honestly
+
+- One pattern proves the pipeline works. It does not prove the approach generalises. Two more patterns, chosen to stress it differently, would tell me.
+- I do not yet know whether agents consult the specs they are given or fall back on memory. That question matters more than any question about spec quality, and it is the next thing I want to test in public.
+- Cost at volume is unmeasured.
+
+## Where to see the public version
+
+The same ideas, built only from public material, are in the open-source work: [ds-bench-de](/work/ds-bench-de) benchmarks public design systems, and the [playground](/playground) runs a small model against this site's own design system.

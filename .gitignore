@@ -5,3 +5,6 @@ node_modules
 next-env.d.ts
 *.tsbuildinfo
 public/search-index.json
+
+# overhaul working files
+.overhaul/
